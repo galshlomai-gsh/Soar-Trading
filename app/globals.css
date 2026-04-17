@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: #05070D;
+  color: #E7ECF5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: rgba(143, 184, 255, 0.35);
+    color: #fff;
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(143, 184, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(143, 184, 255, 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .mask-radial-fade {
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #B9D0FF 0%, #5B8EF0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ring-accent-soft {
+    box-shadow: 0 0 0 1px rgba(143, 184, 255, 0.55), 0 10px 40px -10px rgba(143, 184, 255, 0.45);
+  }
+
+  .hairline {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+  }
+}
