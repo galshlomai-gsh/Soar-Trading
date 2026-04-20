@@ -2,10 +2,6 @@ import { Container } from "@/components/ui/Container";
 import { HeroBackdrop } from "@/components/brand/HeroBackdrop";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Avatar } from "@/components/brand/Avatar";
-import { Star } from "lucide-react";
-
-const SOCIAL_PROOF = ["Jonas Hall", "Priya Shah", "Markus Weber"];
 
 export function Hero() {
   return (
@@ -14,50 +10,32 @@ export function Hero() {
       <Container size="wide">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.1fr_1fr] md:items-center">
           <div>
-            <Badge tone="accent">Pay After You Pass</Badge>
+            <Badge tone="accent">Simulated trading challenges</Badge>
             <h1 className="mt-6 text-[44px] font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-[72px]">
-              Scale Your Trading
-              <br />
-              to <span className="text-gradient">$200,000</span>
+              Get Funded With Up To{" "}
+              <span className="text-gradient">$300k</span> in Simulated Trading
+              Capital
             </h1>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-muted sm:text-[17px]">
-              Access institutional-grade capital and trade with industry-leading
-              conditions. Keep up to{" "}
-              <span className="font-semibold text-ink">90% of your profits.</span>
+              Take on a Soar Funding challenge with clear targets, no time
+              limits, and straightforward rules. Pass the evaluation, trade a
+              simulated funded account, and{" "}
+              <span className="font-semibold text-ink">
+                keep 100% of your first payout
+              </span>
+              .
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button href="/challenges" size="lg">
-                Select Your Challenge
+                Choose Your Challenge
               </Button>
               <Button href="/rules" size="lg" variant="ghost">
                 View Rules
               </Button>
             </div>
-
-            <div className="mt-10 flex items-center gap-4">
-              <div className="flex -space-x-2">
-                {SOCIAL_PROOF.map((n) => (
-                  <Avatar key={n} name={n} size={36} />
-                ))}
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-0.5">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="h-3.5 w-3.5 fill-accent text-accent"
-                        strokeWidth={0}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-sm font-semibold text-ink">4.9</span>
-                </div>
-                <span className="text-xs text-ink-muted">
-                  Join 15,000+ Traders · Trustpilot Rating 4.9/5
-                </span>
-              </div>
-            </div>
+            <p className="mt-8 text-xs text-ink-muted">
+              Simulated trading only. No deposits. No brokerage services.
+            </p>
           </div>
 
           <div className="relative hidden md:block">

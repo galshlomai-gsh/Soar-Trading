@@ -3,31 +3,31 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StepNumber } from "@/components/ui/StepNumber";
-import { ModelPicker } from "@/components/configurator/ModelPicker";
-import { AccountSizePicker } from "@/components/configurator/AccountSizePicker";
+import { ChallengeTypePicker } from "@/components/configurator/ChallengeTypePicker";
+import { SizePicker } from "@/components/configurator/SizePicker";
 import { ChallengeSummary } from "@/components/configurator/ChallengeSummary";
 
 export function FundingPathBuilder() {
   return (
-    <section className="py-24">
+    <section className="py-24" id="challenge-selector">
       <Container size="wide">
         <SectionHeading
           title="Choose Your Funding Path"
-          subtitle="Select the evaluation model that fits your trading strategy."
+          subtitle="Pick the challenge that matches your trading style. Every account is simulated, rule-based, and built to assess consistency before access to a simulated funded account."
         />
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="rounded-card border border-white/10 bg-surface/60 p-6">
-            <StepNumber n={1} label="Select Model" active />
+          <Panel>
+            <StepNumber n={1} label="Select Challenge" active />
             <div className="mt-5">
-              <ModelPicker />
+              <ChallengeTypePicker />
             </div>
-          </div>
-          <div className="rounded-card border border-white/10 bg-surface/60 p-6">
+          </Panel>
+          <Panel>
             <StepNumber n={2} label="Account Size" active />
             <div className="mt-5">
-              <AccountSizePicker sizes={["10k", "25k", "50k", "100k", "250k"]} />
+              <SizePicker sizes={["10k", "25k", "50k", "100k", "200k"]} columns={2} />
             </div>
-          </div>
+          </Panel>
           <div className="flex flex-col">
             <StepNumber n={3} label="Get Funded" active className="mb-4" />
             <ChallengeSummary title="START CHALLENGE" />
@@ -35,5 +35,14 @@ export function FundingPathBuilder() {
         </div>
       </Container>
     </section>
+  );
+}
+
+function Panel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative rounded-card border border-white/10 bg-surface/60 p-6">
+      <span className="pointer-events-none absolute inset-y-6 left-0 w-[3px] rounded-full bg-accent" />
+      {children}
+    </div>
   );
 }

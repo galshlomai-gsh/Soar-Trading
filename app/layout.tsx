@@ -11,9 +11,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Soar Funding — Scale Your Trading to $200,000",
+  title: "Soar Funding | Prop Firm Challenge With Up To $300k",
   description:
-    "Access institutional-grade capital and trade with industry-leading conditions. Keep up to 90% of your profits.",
+    "Take a Soar Funding simulated trading challenge, trade with clear rules, and keep 100% of your first payout after passing.",
 };
 
 export default function RootLayout({
