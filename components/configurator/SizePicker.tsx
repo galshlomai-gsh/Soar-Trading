@@ -1,27 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useChallenge } from "./ChallengeProvider";
+import {
+  type AccountSize,
+  getPrice,
+  sizeShortLabel,
+} from "@/components/data/challenges";
 import { cn } from "@/lib/cn";
 
-const DEFAULT_SIZES = ["10k", "25k", "50k", "100k", "200k"] as const;
-type Size = (typeof DEFAULT_SIZES)[number];
-
-const DISPLAY: Record<Size, string> = {
-  "10k": "$10k",
-  "25k": "$25k",
-  "50k": "$50k",
-  "100k": "$100k",
-  "200k": "$200k",
-};
-
 export function SizePicker({
-  sizes = [...DEFAULT_SIZES],
+  sizes,
   columns = 3,
 }: {
-  sizes?: Size[];
+  sizes?: AccountSize[];
   columns?: 2 | 3;
 }) {
-  const [active, setActive] = useState<Size>(sizes[0]);
+  const { spec, size, setSize } = useChallenge();
+  const visible = sizes ?? spec.sizes;
+  const anyPriced = visible.some((s) => getPrice(spec, s) !== undefined);
+
   return (
     <div className="flex flex-col gap-3">
       <div
@@ -30,29 +27,42 @@ export function SizePicker({
           columns === 2 ? "grid-cols-2" : "grid-cols-3",
         )}
       >
-        {sizes.map((s) => {
-          const on = active === s;
+        {visible.map((s) => {
+          const active = size === s;
+          const price = getPrice(spec, s);
           return (
             <button
               key={s}
               type="button"
-              onClick={() => setActive(s)}
-              aria-pressed={on}
+              onClick={() => setSize(s)}
+              aria-pressed={active}
               className={cn(
-                "rounded-card border py-3 text-sm font-semibold transition-all",
-                on
-                  ? "border-accent/60 bg-accent/8 text-ink ring-accent-soft"
+                "flex flex-col items-center justify-center rounded-card border px-2 py-2.5 transition-all",
+                active
+                  ? "border-accent/70 bg-accent/8 text-ink ring-accent-soft"
                   : "border-white/10 bg-surface/60 text-ink-muted hover:border-white/20 hover:text-ink",
               )}
             >
-              {DISPLAY[s]}
+              <span className="text-sm font-semibold tabular-nums">
+                {sizeShortLabel[s]}
+              </span>
+              <span
+                className={cn(
+                  "mt-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] tabular-nums",
+                  active ? "text-accent" : "text-ink-muted/70",
+                )}
+              >
+                {price !== undefined ? `$${price}` : "TBC"}
+              </span>
             </button>
           );
         })}
       </div>
-      <p className="text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted/70">
-        Account size options to be connected to live pricing data
-      </p>
+      {!anyPriced && (
+        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted/70">
+          Pricing to be confirmed
+        </p>
+      )}
     </div>
   );
 }

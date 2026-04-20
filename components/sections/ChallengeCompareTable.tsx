@@ -3,25 +3,41 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
   challenges,
   fundedPhase,
+  sizeShortLabel,
   type ChallengeSpec,
 } from "@/components/data/challenges";
 
 const columns = [
+  "Account sizes",
+  "Price",
   "Profit target",
-  "Daily loss limit",
-  "Maximum loss",
+  "Daily loss",
+  "Max loss",
   "Drawdown type",
+  "Payout timing",
+  "Profit split",
+  "Consistency rule",
   "Inactivity rule",
   "Activation fee",
-  "Funded profit split",
-  "Payout timing",
-  "Best for",
 ] as const;
+
+function priceSummary(spec: ChallengeSpec): string {
+  if (!spec.pricing) return "To be confirmed";
+  const entries = Object.entries(spec.pricing)
+    .filter(([, v]) => v !== undefined)
+    .sort(([a], [b]) => Number(a.replace("k", "")) - Number(b.replace("k", "")));
+  if (entries.length === 0) return "To be confirmed";
+  return entries
+    .map(([size, fee]) => `${sizeShortLabel[size as keyof typeof sizeShortLabel]}: $${fee}`)
+    .join(" · ");
+}
 
 function rowFor(spec: ChallengeSpec): string[] {
   const evalPhases = spec.phases.filter((p) => p.name !== "Funded");
   const funded = fundedPhase(spec);
 
+  const sizesCell = spec.sizes.map((s) => sizeShortLabel[s]).join(", ");
+  const priceCell = priceSummary(spec);
   const profitTarget = evalPhases
     .map((p) => (p.profitTarget ? `${p.name}: ${p.profitTarget}` : p.name))
     .join(" · ");
@@ -29,25 +45,28 @@ function rowFor(spec: ChallengeSpec): string[] {
   const maxLoss = evalPhases[0]?.maxLoss ?? "—";
   const drawdownType =
     evalPhases[0]?.drawdownType === "trailing" ? "Trailing" : "Fixed";
+  const payoutTiming = funded?.payoutTiming ?? "—";
+  const profitSplit = funded?.profitSplit ?? "—";
+  const consistency = funded?.consistencyRule ?? "—";
   const inactivity =
     evalPhases.find((p) => p.inactivityRule)?.inactivityRule ??
     funded?.inactivityRule ??
     "—";
   const activationFee =
     evalPhases.find((p) => p.activationFee)?.activationFee ?? "Not required";
-  const profitSplit = funded?.profitSplit ?? "—";
-  const payoutTiming = funded?.payoutTiming ?? "—";
 
   return [
+    sizesCell,
+    priceCell,
     profitTarget,
     dailyLoss,
     maxLoss,
     drawdownType,
+    payoutTiming,
+    profitSplit,
+    consistency,
     inactivity,
     activationFee,
-    profitSplit,
-    payoutTiming,
-    spec.bestFor,
   ];
 }
 
@@ -57,11 +76,11 @@ export function ChallengeCompareTable() {
       <Container size="wide">
         <SectionHeading
           title="Compare Challenges"
-          subtitle="Full side-by-side comparison of rules, limits and payout terms. Numbers are sourced from the Terms of Service."
+          subtitle="Full side-by-side comparison of sizes, prices, rules and payout terms. Numbers are sourced from the Terms of Service."
         />
 
         <div className="mt-12 hidden overflow-x-auto rounded-card border border-white/10 bg-surface/60 md:block">
-          <table className="w-full min-w-[900px] text-left text-xs">
+          <table className="w-full min-w-[1100px] text-left text-xs">
             <thead>
               <tr className="border-b border-white/10 bg-base/40 text-[10px] font-semibold uppercase tracking-[0.15em] text-ink-muted">
                 <th className="sticky left-0 z-10 bg-base/60 px-4 py-4">
@@ -140,7 +159,8 @@ export function ChallengeCompareTable() {
           >
             Terms of Service
           </a>{" "}
-          before purchasing.
+          before purchasing. Prices marked &ldquo;to be confirmed&rdquo; are
+          not yet public.
         </p>
       </Container>
     </section>

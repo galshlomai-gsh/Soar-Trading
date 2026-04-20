@@ -3,14 +3,23 @@ import { HeroBackdrop } from "@/components/brand/HeroBackdrop";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
+const stats = [
+  { label: "Up to $300k", sub: "Simulated funded capital" },
+  { label: "100%", sub: "First payout" },
+  { label: "80%", sub: "Ongoing payouts" },
+  { label: "No limits", sub: "No time pressure" },
+  { label: "100+", sub: "Assets available" },
+  { label: "24/7", sub: "Support" },
+];
+
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-24 md:pt-28 md:pb-32">
+    <section className="relative overflow-hidden pt-20 pb-20 md:pt-28 md:pb-28">
       <HeroBackdrop />
       <Container size="wide">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.1fr_1fr] md:items-center">
           <div>
-            <Badge tone="accent">Simulated trading challenges</Badge>
+            <Badge tone="accent">Pay After You Pass</Badge>
             <h1 className="mt-6 text-[44px] font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-[72px]">
               Get Funded With Up To{" "}
               <span className="text-gradient">$300k</span> in Simulated Trading
@@ -18,12 +27,8 @@ export function Hero() {
             </h1>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-muted sm:text-[17px]">
               Take on a Soar Funding challenge with clear targets, no time
-              limits, and straightforward rules. Pass the evaluation, trade a
-              simulated funded account, and{" "}
-              <span className="font-semibold text-ink">
-                keep 100% of your first payout
-              </span>
-              .
+              limits, and straightforward rules. Pass the evaluation, complete
+              the required checks, and trade a simulated funded account.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button href="/challenges" size="lg">
@@ -34,13 +39,30 @@ export function Hero() {
               </Button>
             </div>
             <p className="mt-8 text-xs text-ink-muted">
-              Simulated trading only. No deposits. No brokerage services.
+              Simulated trading only. No deposits. No brokerage services. No
+              investment advice.
             </p>
           </div>
 
           <div className="relative hidden md:block">
             <TradingDeskMock />
           </div>
+        </div>
+
+        <div className="mt-14 grid grid-cols-2 gap-3 md:mt-16 md:grid-cols-3 lg:grid-cols-6">
+          {stats.map((s) => (
+            <div
+              key={s.label}
+              className="rounded-card border border-white/10 bg-surface/60 px-4 py-4 text-center"
+            >
+              <div className="text-lg font-extrabold text-ink sm:text-xl">
+                {s.label}
+              </div>
+              <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-muted">
+                {s.sub}
+              </div>
+            </div>
+          ))}
         </div>
       </Container>
     </section>

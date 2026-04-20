@@ -2,16 +2,14 @@
 
 import { useChallenge } from "./ChallengeProvider";
 import { Button } from "@/components/ui/Button";
-import { fundedPhase } from "@/components/data/challenges";
+import { fundedPhase, sizeLabel } from "@/components/data/challenges";
 
 export function ChallengeSummary({
   title = "START CHALLENGE",
-  footer = "Refundable on first payout",
 }: {
   title?: string;
-  footer?: string;
 }) {
-  const { spec } = useChallenge();
+  const { spec, size, price } = useChallenge();
   const funded = fundedPhase(spec);
   const firstEval = spec.phases.find((p) => p.name !== "Funded");
 
@@ -22,6 +20,7 @@ export function ChallengeSummary({
       </div>
       <div className="mt-5 flex flex-col divide-y divide-white/5">
         <Row label="Challenge" value={spec.label} />
+        <Row label="Account Size" value={sizeLabel[size]} />
         {firstEval?.profitTarget && (
           <Row label="Profit Target" value={firstEval.profitTarget} />
         )}
@@ -36,19 +35,27 @@ export function ChallengeSummary({
         )}
         <Row
           label="Challenge Fee"
-          value={
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted">
-              To be connected
-            </span>
-          }
           emphasize
+          value={
+            price !== undefined ? (
+              <span className="text-2xl font-extrabold text-accent tabular-nums">
+                ${price}
+              </span>
+            ) : (
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted">
+                Price to be confirmed
+              </span>
+            )
+          }
         />
       </div>
       <Button size="lg" fullWidth className="mt-6">
         {title}
       </Button>
       <p className="mt-3 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-muted/70">
-        {footer}
+        {price !== undefined
+          ? "Refundable on first payout"
+          : "Final pricing to be confirmed"}
       </p>
     </div>
   );
@@ -69,7 +76,7 @@ function Row({
       <span
         className={
           emphasize
-            ? "text-right text-sm font-semibold text-ink"
+            ? "text-right"
             : "text-right text-xs font-semibold text-ink"
         }
       >

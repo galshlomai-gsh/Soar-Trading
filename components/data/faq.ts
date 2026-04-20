@@ -1,10 +1,9 @@
 // Answers are conservative: where an authoritative answer is not confirmed,
-// the copy points the reader to the Terms of Service or the relevant page.
+// the copy points the reader to the Terms of Service or support.
 
 export type FaqCategory =
   | "general"
-  | "1-step"
-  | "2-step"
+  | "challenges"
   | "bnpl"
   | "rapid-runway"
   | "rules"
@@ -19,8 +18,7 @@ export interface FaqItem {
 
 export const faqCategories: { id: FaqCategory; label: string }[] = [
   { id: "general", label: "General" },
-  { id: "1-step", label: "1 Step" },
-  { id: "2-step", label: "2 Step" },
+  { id: "challenges", label: "Challenges" },
   { id: "bnpl", label: "BNPL" },
   { id: "rapid-runway", label: "Rapid Runway" },
   { id: "rules", label: "Rules" },
@@ -28,7 +26,10 @@ export const faqCategories: { id: FaqCategory; label: string }[] = [
   { id: "compliance", label: "Compliance & Policies" },
 ];
 
+const SAFE = "Please contact support before assuming this is available.";
+
 export const faqItems: FaqItem[] = [
+  // ---- General ----
   {
     category: "general",
     q: "Who are you?",
@@ -42,62 +43,111 @@ export const faqItems: FaqItem[] = [
   {
     category: "general",
     q: "When do I get my account?",
-    a: "Account details are delivered after successful payment and onboarding checks. Exact delivery times may vary — please contact support@soar-funding.com if you have not received your details.",
+    a: `Account details are delivered after successful payment and onboarding checks. Exact delivery times may vary. ${SAFE}`,
   },
   {
     category: "general",
     q: "What platform do you use?",
-    a: "Platform options will be connected here once confirmed. Please refer to the challenge purchase flow for the current list of supported platforms.",
-  },
-  {
-    category: "general",
-    q: "Can I take multiple challenges?",
-    a: "Rules on holding multiple challenges vary by challenge type and jurisdiction. Please review the Terms of Service before purchasing additional accounts.",
-  },
-  {
-    category: "general",
-    q: "Is the challenge fee refundable?",
-    a: "Soar Funding operates a no-refund policy on challenge fees. Please see the Terms of Service for details.",
-  },
-  {
-    category: "general",
-    q: "Can I buy a challenge for someone else?",
-    a: "Third-party purchases and third-party payouts are prohibited. The purchaser must be the trader operating the account.",
+    a: `Platform options are published on the challenge purchase flow. ${SAFE}`,
   },
   {
     category: "general",
     q: "How do I contact support?",
-    a: "Email support@soar-funding.com for any account or billing questions.",
+    a: "Email support@soar-funding.com for any account, billing, or rules question.",
   },
   {
-    category: "2-step",
+    category: "general",
+    q: "Where can I manage my account?",
+    a: `A client portal is planned for account management. ${SAFE}`,
+  },
+  {
+    category: "general",
+    q: "What's the leverage?",
+    a: `Leverage varies by asset class and challenge type. ${SAFE}`,
+  },
+  {
+    category: "general",
+    q: "What's the commission?",
+    a: `Commission schedules depend on platform and instrument. ${SAFE}`,
+  },
+  {
+    category: "general",
+    q: "Do you have a trader community?",
+    a: "Soar Funding runs a trader community on Discord — see the Join Our Community link in the footer.",
+  },
+  // ---- Challenges ----
+  {
+    category: "challenges",
     q: "What are the 2 Step rules?",
-    a: "Phase 1 target is 8% and Phase 2 target is 6%. Maximum loss is 8% fixed and daily loss limit is 4% fixed, based on EOD equity or balance (whichever is higher). On the funded stage, the consistency rule is max 40% of total profits in one trading day.",
+    a: "Phase 1 profit target is 8% and Phase 2 target is 6%. Maximum loss is 8% fixed. Daily loss limit is 4% fixed, based on EOD equity or balance (whichever is higher). On the funded stage, the consistency rule is max 40% of total profits in one trading day.",
   },
   {
-    category: "1-step",
+    category: "challenges",
     q: "What are the 1 Step rules?",
-    a: "Profit target is 10%. Maximum loss is 8% trailing and daily loss limit is 3% fixed, based on EOD equity or balance (whichever is higher). On the funded stage, the consistency rule is max 35% of total profits in one trading day.",
+    a: "Profit target is 10%. Maximum loss is 8% trailing. Daily loss limit is 3% fixed, based on EOD equity or balance (whichever is higher). On the funded stage, the consistency rule is max 35% of total profits in one trading day.",
+  },
+  {
+    category: "challenges",
+    q: "Can I take multiple challenges?",
+    a: `Rules on holding multiple challenges vary by challenge type. ${SAFE}`,
+  },
+  {
+    category: "challenges",
+    q: "Is the challenge fee refundable?",
+    a: "Challenge fees are non-refundable. On standard challenges, the fee is refundable on your first payout. See the Terms of Service for full details.",
+  },
+  {
+    category: "challenges",
+    q: "How long do I have to activate a challenge after purchase?",
+    a: `Activation windows depend on the challenge type. ${SAFE}`,
+  },
+  {
+    category: "challenges",
+    q: "Can I buy a challenge for someone else?",
+    a: "Third-party purchases and third-party payouts are prohibited. The purchaser must be the trader operating the account.",
+  },
+  {
+    category: "challenges",
+    q: "Are funded accounts real or simulated?",
+    a: "All funded accounts are simulated demo accounts. All balances, profits, losses, and performance metrics are virtual. See the Risk Disclosure for full details.",
+  },
+  {
+    category: "challenges",
+    q: "Can I merge funded accounts?",
+    a: `Rules on merging funded accounts vary by challenge type. ${SAFE}`,
+  },
+  // ---- BNPL ----
+  {
+    category: "bnpl",
+    q: "Buy Now Pay Later — targets and limits",
+    a: "BNPL 2 Step: Phase 1 target 8%, Phase 2 target 5%, max loss 10% trailing, daily loss 5% fixed. BNPL 1 Step: profit target 6%, max loss 10% trailing, daily loss 5% fixed. Activation fee must be paid within 15 days of passing.",
   },
   {
     category: "bnpl",
-    q: "What are the BNPL 2 Step targets and limits?",
-    a: "Phase 1 target is 8% and Phase 2 target is 5%. Maximum loss is 10% trailing and daily loss limit is 5% fixed. The activation fee must be paid within 15 days of passing. Funded phase: 8% trailing max loss, 3% fixed daily loss, 80% profit split, 25% consistency rule.",
+    q: "Buy Now Pay Later — funded rules",
+    a: "BNPL 2 Step funded: 8% trailing max loss, 3% fixed daily loss, 80% profit split bi-weekly, 25% consistency rule. BNPL 1 Step funded: 6% trailing max loss, 3% fixed daily loss, 80% profit split bi-weekly, 15% consistency rule. Inactivity rule: at least one trade every 30 days.",
   },
   {
     category: "bnpl",
-    q: "What are the BNPL 1 Step targets and limits?",
-    a: "Profit target is 6%. Maximum loss is 10% trailing and daily loss limit is 5% fixed. The activation fee must be paid within 15 days of passing. Funded phase: 6% trailing max loss, 3% fixed daily loss, 80% profit split, 15% consistency rule.",
+    q: "Only $20 upfront?!",
+    a: `BNPL positioning on the live Soar Funding site refers to reduced upfront cost. The activation fee is paid after passing. ${SAFE}`,
   },
+  // ---- Rapid Runway ----
   {
-    category: "bnpl",
-    q: "What does “only $20 upfront” mean?",
-    a: "This refers to BNPL pricing positioning on the live Soar Funding site. The activation fee is paid after passing. Please confirm exact pricing on the purchase flow.",
+    category: "rapid-runway",
+    q: "Rapid Runway rules",
+    a: "Phase 1 is skipped. Phase 2 target is 5%. Maximum loss is 8% trailing. Challenge daily loss is 5% and funded daily loss is 3% fixed. Profit split is 80% bi-weekly. Consistency rule is max 20% of total profits in one trading day. Activation fee must be paid within 15 days of passing. Inactivity rule: at least one trade every 30 days.",
   },
   {
     category: "rapid-runway",
-    q: "What are the Rapid Runway rules?",
-    a: "Phase 1 is skipped. Phase 2 target is 5%. Maximum loss is 8% trailing. Daily loss limit is 5% during the challenge and 3% on the funded stage. Profit split is 80% bi-weekly. Consistency rule is max 20% of total profits in one trading day. Activation fee must be paid within 15 days of passing.",
+    q: "Rapid Runway — targets and limits",
+    a: "Phase 2 target: 5%. Max loss: 8% trailing. Challenge daily loss: 5%. Funded daily loss: 3% fixed.",
+  },
+  // ---- Rules ----
+  {
+    category: "rules",
+    q: "Trading rules",
+    a: "Minimum 2-minute hold on every trade. No copy trading or hedging across accounts. No HFT, toxic trading, or latency arbitrage. News trading only with the correct add-on. Weekend holding is permitted. At least one trade every 30 days. See the full rules page for details.",
   },
   {
     category: "rules",
@@ -107,56 +157,38 @@ export const faqItems: FaqItem[] = [
   {
     category: "rules",
     q: "Are Expert Advisors allowed?",
-    a: "Expert Advisors may be used where approved and compliant with Soar Funding's trading rules. Strategies that exploit demo conditions, latency, pricing, execution, or platform infrastructure are not allowed.",
+    a: "Expert Advisors may be used where reviewed, approved, and compliant with Soar Funding's trading rules. Strategies that exploit demo conditions, latency, pricing, execution, or platform infrastructure are not allowed.",
   },
   {
     category: "rules",
     q: "Is copy trading allowed?",
     a: "Copy trading or hedging across accounts is not allowed. Each trader must trade independently and comply with the platform's risk rules.",
   },
-  {
-    category: "rules",
-    q: "What is the inactivity rule?",
-    a: "You must place at least one trade every 30 days on every active account. Longer periods of inactivity may lead to account review or closure.",
-  },
-  {
-    category: "rules",
-    q: "What is the minimum trade hold time?",
-    a: "A minimum two-minute hold is required on every trade.",
-  },
+  // ---- Payouts ----
   {
     category: "payouts",
     q: "What are the payout terms?",
-    a: "Your first payout becomes available after 30 calendar days, subject to KYC, rule checks, and payout approval. After that, eligible payouts are available bi-weekly. Standard challenge profit split is 100% on the first payout and 80% on ongoing payouts. Minimum payout request threshold is 1% profit.",
+    a: "For standard funded accounts, the first payout is available after 30 calendar days, subject to KYC, rule checks, and payout approval. First payout profit split is 100%; ongoing payouts are 80% bi-weekly. Minimum payout request threshold is 1% profit.",
   },
-  {
-    category: "payouts",
-    q: "Are funded accounts real or simulated?",
-    a: "All funded accounts are simulated demo accounts. All balances, profits, losses, and performance metrics are virtual. See the Risk Disclosure for full details.",
-  },
-  {
-    category: "payouts",
-    q: "Can I merge funded accounts?",
-    a: "Rules on merging funded accounts vary by challenge type. Please review the Terms of Service before requesting a merge.",
-  },
+  // ---- Compliance ----
   {
     category: "compliance",
-    q: "IP address & location consistency policy",
+    q: "IP Address & Location Consistency Policy",
     a: "Your login IP should be reasonably consistent across sessions. Unusual location changes may trigger a review. Occasional travel is acceptable, but persistent location switching to circumvent rules is not.",
   },
   {
     category: "compliance",
-    q: "Use of VPS or VPN services",
+    q: "Use of VPS or VPN Services",
     a: "VPNs and static IPs are permitted where usage is consistent. VPS providers should also be used consistently. Frequent switching between locations or providers may trigger a review.",
   },
   {
     category: "compliance",
-    q: "Responsible trading & gambling policy",
+    q: "Responsible Trading & Gambling Policy",
     a: "Trading on a Soar Funding challenge should reflect a controlled, risk-aware strategy. Behaviour that resembles gambling — such as outsized position sizing designed to force a result — may be flagged and reviewed.",
   },
   {
     category: "compliance",
-    q: "Trading while travelling",
+    q: "Trading While Travelling",
     a: "You can trade while travelling provided your location pattern remains reasonably consistent. Please review the IP address & location policy before extended travel.",
   },
 ];
