@@ -7,25 +7,68 @@ export interface RuleGroup {
   items: { label: string; body?: string }[];
 }
 
+export const coreRules: string[] = [
+  "No copy trading or hedging across accounts",
+  "No HFT, toxic trading, execution abuse, or latency arbitrage",
+  "No news trading unless the correct add-on has been purchased",
+  "Weekend holding is permitted",
+  "VPNs and static IPs are allowed if consistent",
+  "Minimum 2-minute hold required",
+  "No trading within 5 minutes before or after high-impact news without the correct add-on",
+  "At least one trade is required every 30 days",
+  "EAs must be reviewed and approved",
+  "Stop-loss is not mandatory but recommended",
+  "All trades are monitored by the risk team",
+];
+
 export const ruleGroups: RuleGroup[] = [
   {
-    id: "core",
-    title: "Core rules",
+    id: "news-trading",
+    title: "News Trading",
     items: [
-      { label: "No copy trading or hedging across accounts." },
-      { label: "No HFT, toxic trading, execution abuse, or latency arbitrage." },
-      { label: "No news trading unless the correct add-on is purchased." },
-      { label: "Weekend holding is permitted." },
-      { label: "VPNs and static IPs are allowed if usage is consistent." },
-      { label: "Minimum 2-minute hold required on every trade." },
-      { label: "Inactivity rule: at least one trade every 30 days." },
-      { label: "Expert Advisors must be reviewed and approved before use." },
-      { label: "Stop-loss is not mandatory but is strongly recommended." },
+      {
+        label: "High-impact news window",
+        body:
+          "Trading within 5 minutes before or after high-impact news is not allowed unless the correct add-on is purchased. Profits made during the restricted window may be deducted and repeated breaches may close the account.",
+      },
+    ],
+  },
+  {
+    id: "expert-advisors",
+    title: "Expert Advisors",
+    items: [
+      {
+        label: "Approval required",
+        body:
+          "Expert Advisors may be used where reviewed, approved, and compliant with Soar Funding's trading rules. Strategies that exploit demo conditions, pricing, execution, latency, or platform infrastructure are not allowed.",
+      },
+    ],
+  },
+  {
+    id: "copy-trading",
+    title: "Copy Trading & Hedging",
+    items: [
+      {
+        label: "Not permitted",
+        body:
+          "Copy trading or hedging across accounts is not allowed. Each trader must trade independently and comply with the platform's risk rules.",
+      },
+    ],
+  },
+  {
+    id: "toxic-trading",
+    title: "Toxic Trading",
+    items: [
+      {
+        label: "Definition",
+        body:
+          "Toxic trading includes strategies or behaviour that exploit demo conditions, pricing, execution, latency, or platform infrastructure. Toxic trading is a hard breach and can result in account termination, loss of profits, and no payout eligibility.",
+      },
     ],
   },
   {
     id: "soft-breaches",
-    title: "Soft breaches",
+    title: "Soft Breaches",
     intro:
       "Soft breaches are behaviours that violate trading rules without triggering immediate account termination.",
     items: [
@@ -47,7 +90,7 @@ export const ruleGroups: RuleGroup[] = [
   },
   {
     id: "hard-breaches",
-    title: "Hard breaches",
+    title: "Hard Breaches",
     intro:
       "Hard breaches are serious violations that can terminate the account outright.",
     items: [
@@ -59,32 +102,10 @@ export const ruleGroups: RuleGroup[] = [
     ],
   },
   {
-    id: "toxic",
-    title: "Toxic trading",
-    items: [
-      {
-        label: "Definition",
-        body:
-          "Toxic trading includes strategies or behaviour that exploit demo conditions, pricing, execution, latency, or platform infrastructure.",
-      },
-    ],
-  },
-  {
-    id: "news",
-    title: "News trading",
-    items: [
-      {
-        label: "High-impact news window",
-        body:
-          "Trading within 5 minutes before or after high-impact news is not allowed unless the correct add-on is purchased. Profits may be deducted where the rule is breached.",
-      },
-    ],
-  },
-  {
     id: "consistency",
-    title: "Consistency rules (funded stage)",
+    title: "Consistency Rules (funded stage)",
     intro:
-      "Maximum share of total profits that can be made in a single trading day on a funded account.",
+      "Maximum share of total profits that can be made in a single trading day on a simulated funded account.",
     items: [
       { label: "2 Step funded", body: "40% max of total profits in one trading day." },
       { label: "1 Step funded", body: "35% max of total profits in one trading day." },
@@ -95,12 +116,28 @@ export const ruleGroups: RuleGroup[] = [
   },
   {
     id: "ip-vpn",
-    title: "IP, VPS and VPN",
+    title: "IP, VPS & VPN",
     items: [
       {
         label: "Location consistency",
         body:
-          "VPNs and static IPs are allowed where usage is consistent. Unusual location changes may require review.",
+          "VPNs and static IPs are allowed where usage is consistent. VPS providers should also be used consistently. Unusual location changes may trigger a review.",
+      },
+    ],
+  },
+  {
+    id: "reviews",
+    title: "Reviews & Retrospective Action",
+    items: [
+      {
+        label: "Account reviews",
+        body:
+          "All trades are monitored by the risk team. Accounts may be reviewed after phase completion or payout request.",
+      },
+      {
+        label: "Retrospective enforcement",
+        body:
+          "Soar Funding may deduct profits, reclassify breaches, or terminate accounts based on historical activity where rules have been breached.",
       },
     ],
   },

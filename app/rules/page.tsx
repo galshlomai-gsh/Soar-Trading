@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ruleGroups } from "@/components/data/rules";
+import { Check } from "lucide-react";
+import { coreRules, ruleGroups } from "@/components/data/rules";
 
 export const metadata: Metadata = {
   title: "Soar Funding Trading Rules | Drawdown, News, EAs & Breaches",
@@ -18,7 +19,22 @@ export default function Page() {
           subtitle="Clear rules before you start. Trade your strategy, avoid restricted behaviour, and stay compliant through every stage."
         />
 
-        <div className="mt-12 flex flex-col gap-10">
+        <div className="mt-12 rounded-card border border-white/10 bg-surface/60 p-7">
+          <h2 className="text-xl font-bold text-ink">Core rules</h2>
+          <ul className="mt-4 flex flex-col gap-2.5">
+            {coreRules.map((rule) => (
+              <li key={rule} className="flex items-start gap-3 text-sm text-ink/90">
+                <Check
+                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                  strokeWidth={3}
+                />
+                <span>{rule}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-6">
           {ruleGroups.map((group) => (
             <section
               key={group.id}

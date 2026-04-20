@@ -3,11 +3,17 @@ import { Container } from "@/components/ui/Container";
 import { LogoSoar } from "@/components/brand/LogoSoar";
 import { footerNav } from "@/components/data/nav";
 import {
+  brandFooterCopy,
   company,
   externalLinks,
   riskWarning,
+  riskWarningExtended,
 } from "@/components/data/company";
 import { MessageCircle, Mail, MapPin, ShieldCheck } from "lucide-react";
+
+function isExternal(href: string) {
+  return href.startsWith("http") || href.startsWith("mailto:");
+}
 
 export function SiteFooter() {
   return (
@@ -17,8 +23,7 @@ export function SiteFooter() {
           <div className="flex flex-col gap-5">
             <LogoSoar />
             <p className="max-w-xs text-sm leading-relaxed text-ink-muted">
-              Simulated trading challenges and educational tools for traders.
-              Clear rules, straightforward payouts.
+              {brandFooterCopy}
             </p>
             <div className="flex flex-col gap-2 text-xs text-ink-muted">
               <span className="inline-flex items-center gap-2">
@@ -62,16 +67,29 @@ export function SiteFooter() {
                 {col.heading}
               </h4>
               <ul className="flex flex-col gap-2.5">
-                {col.items.map((i) => (
-                  <li key={i.label}>
-                    <Link
-                      href={i.href}
-                      className="text-sm text-ink/90 transition-colors hover:text-accent"
-                    >
-                      {i.label}
-                    </Link>
-                  </li>
-                ))}
+                {col.items.map((i) =>
+                  isExternal(i.href) ? (
+                    <li key={i.label}>
+                      <a
+                        href={i.href}
+                        target={i.href.startsWith("http") ? "_blank" : undefined}
+                        rel={i.href.startsWith("http") ? "noreferrer" : undefined}
+                        className="text-sm text-ink/90 transition-colors hover:text-accent"
+                      >
+                        {i.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={i.label}>
+                      <Link
+                        href={i.href}
+                        className="text-sm text-ink/90 transition-colors hover:text-accent"
+                      >
+                        {i.label}
+                      </Link>
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
           ))}
@@ -80,7 +98,8 @@ export function SiteFooter() {
         <NewsletterSignup />
 
         <div className="mt-10 rounded-card border border-white/5 bg-surface/40 p-5 text-[11px] leading-relaxed text-ink-muted/80">
-          {riskWarning}
+          <p>{riskWarning}</p>
+          <p className="mt-3">{riskWarningExtended}</p>
         </div>
 
         <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-white/5 pt-6 text-[11px] text-ink-muted/70 md:flex-row md:items-center">
@@ -88,9 +107,7 @@ export function SiteFooter() {
             © 2026 {company.legalName}. Company no. {company.companyNumber},{" "}
             {company.jurisdiction}.
           </span>
-          <span>
-            {company.registeredOffice}
-          </span>
+          <span>{company.registeredOffice}</span>
         </div>
       </Container>
     </footer>
@@ -106,9 +123,7 @@ function NewsletterSignup() {
       encType="text/plain"
     >
       <div className="flex-1">
-        <div className="text-sm font-semibold text-ink">
-          Stay up to date
-        </div>
+        <div className="text-sm font-semibold text-ink">Stay up to date</div>
         <p className="mt-1 text-xs text-ink-muted">
           Challenge updates, rule changes, and new releases. No spam.
         </p>

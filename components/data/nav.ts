@@ -2,6 +2,7 @@ export const primaryNav = [
   { label: "Challenges", href: "/challenges" },
   { label: "Rules", href: "/rules" },
   { label: "Payouts", href: "/payouts" },
+  { label: "Affiliates", href: "/affiliates" },
   { label: "FAQ", href: "/faq" },
 ];
 
@@ -18,7 +19,10 @@ export const footerNav: { heading: string; items: { label: string; href: string 
   {
     heading: "Company",
     items: [
+      { label: "Affiliates", href: "/affiliates" },
       { label: "Contact Support", href: "mailto:support@soar-funding.com" },
+      { label: "Client Portal", href: "/client-portal" },
+      { label: "Join Our Community", href: "https://discord.gg/soar-funding" },
     ],
   },
   {
