@@ -1,20 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { faqItems } from "@/components/data/faq";
+import { topFaq } from "@/components/data/faq";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
+  const items = topFaq();
   return (
     <section className="py-24">
       <Container size="narrow">
         <SectionHeading title="Frequently Asked Questions" />
         <ul className="mt-12 flex flex-col gap-3">
-          {faqItems.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i;
             return (
               <li key={item.q}>
@@ -54,6 +56,14 @@ export function FaqSection() {
             );
           })}
         </ul>
+        <div className="mt-10 text-center">
+          <Link
+            href="/faq"
+            className="text-xs font-semibold uppercase tracking-[0.2em] text-accent hover:text-accent-soft"
+          >
+            View the full FAQ →
+          </Link>
+        </div>
       </Container>
     </section>
   );

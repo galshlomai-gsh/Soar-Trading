@@ -1,25 +1,50 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Infinity as InfinityIcon, Wallet, Zap } from "lucide-react";
+import {
+  Bot,
+  Clock,
+  Coins,
+  Headphones,
+  Infinity as InfinityIcon,
+  ScrollText,
+} from "lucide-react";
 
 const features = [
   {
-    icon: Wallet,
-    title: "90% Profit Split",
+    icon: Bot,
+    title: "EAs allowed, with approval",
     body:
-      "Earn the industry's highest profit share. Scale up to a 90% split as you achieve your growth targets.",
+      "Expert Advisors may be used where approved and compliant with Soar Funding's trading rules.",
   },
   {
-    icon: Zap,
-    title: "Fast Payouts",
+    icon: Headphones,
+    title: "24/7 support",
     body:
-      "Requested. Approved. Sent. Receive your profits in under 24 hours via crypto or wire transfer.",
+      "Reach our team any day of the week at support@soar-funding.com.",
+  },
+  {
+    icon: Coins,
+    title: "100% first payout",
+    body:
+      "Keep 100% of your first payout. Ongoing payouts are paid at 80% bi-weekly.",
   },
   {
     icon: InfinityIcon,
-    title: "No Time Limits",
+    title: "No time limits",
     body:
       "Trade at your own pace. There are no minimum or maximum trading days on our evaluations.",
+  },
+  {
+    icon: Clock,
+    title: "100+ assets",
+    body:
+      "Forex majors and minors, metals, indices, crypto and oil — all in one account.",
+  },
+  {
+    icon: ScrollText,
+    title: "Clear challenge rules",
+    body:
+      "Simple, rule-based evaluation. Profit targets, drawdown limits and payout terms on every page.",
   },
 ];
 
@@ -39,16 +64,16 @@ export function AdvantageGrid() {
           <SectionHeading
             theme="light"
             align="left"
-            eyebrow="Precision Trading"
-            title="The Soar Advantage."
-            emphasize="Advantage."
+            eyebrow="Why Soar Funding"
+            title="Built for serious traders."
+            emphasize="serious traders."
           />
           <p className="max-w-md text-sm leading-relaxed text-sectionLightInk/60">
-            We&apos;ve eliminated the friction found in traditional prop firms.
-            No arbitrary rules. No slow payouts. Just raw performance tools.
+            Clear rules. Simulated funded accounts. A simple payout structure.
+            Support when you need it.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => {
             const Icon = f.icon;
             return (
