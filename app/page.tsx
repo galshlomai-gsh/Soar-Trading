@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import { Hero } from "@/components/sections/Hero";
-import { PressStrip } from "@/components/sections/PressStrip";
-import { PayoutMarquee } from "@/components/sections/PayoutMarquee";
 import { AdvantageGrid } from "@/components/sections/AdvantageGrid";
-import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
+import { MarketsSection } from "@/components/sections/MarketsSection";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { Testimonials } from "@/components/sections/Testimonials";
+import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
+import { RulesPreview } from "@/components/sections/RulesPreview";
+import { PayoutPreview } from "@/components/sections/PayoutPreview";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { ChallengeProvider } from "@/components/configurator/ChallengeProvider";
@@ -14,16 +14,16 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <PressStrip />
-      <PayoutMarquee />
+      <MarketsSection />
       <AdvantageGrid />
+      <ProcessSteps />
       <Suspense fallback={null}>
         <ChallengeProvider>
           <FundingPathBuilder />
         </ChallengeProvider>
       </Suspense>
-      <ProcessSteps />
-      <Testimonials />
+      <RulesPreview />
+      <PayoutPreview />
       <FaqSection />
       <FinalCta />
     </>

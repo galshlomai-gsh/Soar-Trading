@@ -6,21 +6,27 @@ import { BadgeCheck } from "lucide-react";
 const steps = [
   {
     n: "01",
-    title: "Pass the Evaluation",
+    title: "Choose your trading challenge",
     body:
-      "Demonstrate your trading skills on our evaluation accounts. Follow the rules and hit the profit target.",
+      "Pick the challenge that matches your style. Rules, targets and drawdown limits are published on every page.",
   },
   {
     n: "02",
-    title: "Verify Your Results",
+    title: "Pass the evaluation",
     body:
-      "Once the target is reached, our team performs a quick risk audit to ensure consistency and rule compliance.",
+      "Hit the profit target while staying within the drawdown and daily loss limits for your challenge.",
   },
   {
     n: "03",
-    title: "Trade Institutional Funds",
+    title: "Complete review and verification",
     body:
-      "Receive your master account details and start trading our capital. Scale your account as you withdraw profits.",
+      "Our team performs a risk audit, KYC check and rule review before funded-stage access is issued.",
+  },
+  {
+    n: "04",
+    title: "Trade a simulated funded account",
+    body:
+      "Access your simulated funded account and request eligible payouts after the 30-day window.",
   },
 ];
 
@@ -56,11 +62,12 @@ export function ProcessSteps() {
           <div>
             <SectionHeading
               align="left"
+              eyebrow="How it works"
               title={
                 <>
-                  Simple Process,
+                  Four steps from challenge
                   <br />
-                  <span className="text-gradient">Global Capital.</span>
+                  <span className="text-gradient">to simulated funded.</span>
                 </>
               }
             />
@@ -73,7 +80,7 @@ export function ProcessSteps() {
                   <div>
                     <h4 className="flex items-center gap-2 text-base font-bold text-ink">
                       {s.title}
-                      {s.n === "03" && <BadgeCheck className="h-4 w-4 text-accent" />}
+                      {s.n === "04" && <BadgeCheck className="h-4 w-4 text-accent" />}
                     </h4>
                     <p className="mt-1 text-sm leading-relaxed text-ink-muted">
                       {s.body}
@@ -84,7 +91,7 @@ export function ProcessSteps() {
             </ol>
             <div className="mt-8">
               <Button href="/challenges" size="md">
-                Start Your Evaluation
+                Choose Your Challenge
               </Button>
             </div>
           </div>
