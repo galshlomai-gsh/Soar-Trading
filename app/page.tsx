@@ -9,6 +9,7 @@ import { MarketsSection } from "@/components/sections/MarketsSection";
 import { TrustSection } from "@/components/sections/TrustSection";
 import { RulesPreview } from "@/components/sections/RulesPreview";
 import { PayoutPreview } from "@/components/sections/PayoutPreview";
+import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { ChallengeProvider } from "@/components/configurator/ChallengeProvider";
@@ -29,6 +30,7 @@ export default function Home() {
       <MarketsSection />
       <RulesPreview />
       <PayoutPreview />
+      <ReviewsSection />
       <TrustSection />
       <FaqSection />
       <FinalCta />
