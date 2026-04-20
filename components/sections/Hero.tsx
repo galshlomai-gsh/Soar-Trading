@@ -2,6 +2,9 @@ import { Container } from "@/components/ui/Container";
 import { HeroBackdrop } from "@/components/brand/HeroBackdrop";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { SoarMark } from "@/components/brand/LogoSoar";
+import { Sparkles } from "lucide-react";
+import { challenges } from "@/components/data/challenges";
 
 const stats = [
   { label: "Up to $300k", sub: "Simulated funded capital" },
@@ -12,7 +15,19 @@ const stats = [
   { label: "24/7", sub: "Support" },
 ];
 
+function lowestPublicPrice(): number | undefined {
+  const prices: number[] = [];
+  for (const c of challenges) {
+    if (!c.pricing) continue;
+    for (const v of Object.values(c.pricing)) {
+      if (typeof v === "number") prices.push(v);
+    }
+  }
+  return prices.length ? Math.min(...prices) : undefined;
+}
+
 export function Hero() {
+  const fromPrice = lowestPublicPrice();
   return (
     <section className="relative overflow-hidden pt-20 pb-20 md:pt-28 md:pb-28">
       <HeroBackdrop />
@@ -37,6 +52,19 @@ export function Hero() {
               <Button href="/rules" size="lg" variant="ghost">
                 View Rules
               </Button>
+              {fromPrice !== undefined && (
+                <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-semibold text-ink">
+                  <Sparkles
+                    className="h-3.5 w-3.5 text-accent"
+                    strokeWidth={2.5}
+                  />
+                  From{" "}
+                  <span className="tabular-nums text-accent-soft">
+                    ${fromPrice}
+                  </span>
+                  <span className="text-ink-muted">· 1 Step</span>
+                </span>
+              )}
             </div>
             <p className="mt-8 text-xs text-ink-muted">
               Simulated trading only. No deposits. No brokerage services. No
@@ -80,6 +108,12 @@ function TradingDeskMock() {
             "radial-gradient(500px 280px at 30% 10%, rgba(91,142,240,0.25), transparent 65%), radial-gradient(420px 260px at 80% 90%, rgba(243,127,106,0.18), transparent 60%)",
         }}
       />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.07]"
+      >
+        <SoarMark size={360} />
+      </div>
       <div className="absolute inset-6 grid grid-cols-2 gap-3">
         <Screen symbol="EUR/USD" direction="up" />
         <Screen symbol="BTC/USD" direction="up" />
@@ -91,27 +125,50 @@ function TradingDeskMock() {
   );
 }
 
-function Screen({ symbol, direction }: { symbol: string; direction: "up" | "down" }) {
+function Screen({
+  symbol,
+  direction,
+}: {
+  symbol: string;
+  direction: "up" | "down";
+}) {
   const up = direction === "up";
   return (
     <div className="relative flex flex-col overflow-hidden rounded-xl border border-white/10 bg-base/90 p-3">
       <div className="flex items-center justify-between text-[10px] font-semibold">
         <span className="text-ink/80">{symbol}</span>
-        <span className={up ? "text-ok" : "text-warn"}>{up ? "▲ 1.82%" : "▼ 0.43%"}</span>
+        <span className={up ? "text-ok" : "text-warn"}>
+          {up ? "▲ 1.82%" : "▼ 0.43%"}
+        </span>
       </div>
       <svg viewBox="0 0 120 60" className="mt-2 h-full w-full">
         <defs>
-          <linearGradient id={`g-${symbol}`} x1="0" y1="0" x2="0" y2="60" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id={`g-${symbol}`}
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="60"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop stopColor={up ? "#6FE3A5" : "#F37F6A"} stopOpacity="0.4" />
             <stop offset="1" stopColor={up ? "#6FE3A5" : "#F37F6A"} stopOpacity="0" />
           </linearGradient>
         </defs>
         <path
-          d={up ? "M0 45 L20 38 L35 42 L55 30 L75 33 L95 20 L120 14 L120 60 L0 60 Z" : "M0 25 L20 32 L35 28 L55 40 L75 36 L95 48 L120 52 L120 60 L0 60 Z"}
+          d={
+            up
+              ? "M0 45 L20 38 L35 42 L55 30 L75 33 L95 20 L120 14 L120 60 L0 60 Z"
+              : "M0 25 L20 32 L35 28 L55 40 L75 36 L95 48 L120 52 L120 60 L0 60 Z"
+          }
           fill={`url(#g-${symbol})`}
         />
         <path
-          d={up ? "M0 45 L20 38 L35 42 L55 30 L75 33 L95 20 L120 14" : "M0 25 L20 32 L35 28 L55 40 L75 36 L95 48 L120 52"}
+          d={
+            up
+              ? "M0 45 L20 38 L35 42 L55 30 L75 33 L95 20 L120 14"
+              : "M0 25 L20 32 L35 28 L55 40 L75 36 L95 48 L120 52"
+          }
           stroke={up ? "#6FE3A5" : "#F37F6A"}
           strokeWidth="1.5"
           fill="none"
