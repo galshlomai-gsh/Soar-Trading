@@ -14,7 +14,9 @@ import {
   type ChallengeModel,
   type ChallengeSteps,
   type Platform,
+  availableSteps,
   findPrice,
+  pricing,
 } from "@/components/data/challenges";
 
 export interface Selection {
@@ -50,22 +52,43 @@ function readFromParams(params: URLSearchParams): Selection {
   };
 }
 
+function reconcile(selection: Selection): Selection {
+  const steps = availableSteps(selection.model).includes(selection.steps)
+    ? selection.steps
+    : availableSteps(selection.model)[0] ?? selection.steps;
+
+  const hasSize = pricing.some(
+    (p) =>
+      p.model === selection.model &&
+      p.steps === steps &&
+      p.size === selection.size,
+  );
+  const size = hasSize
+    ? selection.size
+    : pricing.find((p) => p.model === selection.model && p.steps === steps)
+        ?.size ?? selection.size;
+
+  return { ...selection, steps, size };
+}
+
 export function ChallengeProvider({ children }: { children: React.ReactNode }) {
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [state, setState] = useState<Selection>(() => readFromParams(params));
+  const [state, setState] = useState<Selection>(() =>
+    reconcile(readFromParams(params)),
+  );
 
   useEffect(() => {
-    setState(readFromParams(params));
+    setState(reconcile(readFromParams(params)));
   }, [params]);
 
   const update = useCallback(
     (patch: Partial<Selection>) => {
-      const next = { ...state, ...patch };
+      const next = reconcile({ ...state, ...patch });
       setState(next);
       const q = new URLSearchParams(params.toString());
-      (Object.keys(patch) as (keyof Selection)[]).forEach((k) =>
+      (Object.keys(next) as (keyof Selection)[]).forEach((k) =>
         q.set(k, next[k]),
       );
       router.replace(`${pathname}?${q.toString()}`, { scroll: false });

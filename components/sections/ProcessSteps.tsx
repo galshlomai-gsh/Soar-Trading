@@ -1,7 +1,7 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { BadgeCheck, Landmark, UserPlus } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 
 const steps = [
   {
@@ -29,46 +29,28 @@ export function ProcessSteps() {
     <section className="py-24">
       <Container size="wide">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[0.9fr_1.1fr] md:items-center">
-          <div className="relative flex flex-col gap-5">
-            <div className="flex items-center gap-3 rounded-card border border-white/10 bg-surface/60 p-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/15 text-accent">
-                <UserPlus className="h-4 w-4" />
-              </div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-muted">
-                Step 1 · Registration
-              </span>
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-white/10 bg-elevated">
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(520px 320px at 30% 20%, rgba(91,142,240,0.25), transparent 65%)",
-                }}
-              />
-              <svg viewBox="0 0 300 220" className="absolute inset-0 h-full w-full opacity-80">
-                <defs>
-                  <linearGradient id="proc" x1="0" y1="0" x2="0" y2="220" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#5B8EF0" stopOpacity="0.4" />
-                    <stop offset="1" stopColor="#5B8EF0" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                <path d="M0 160 L40 130 L80 140 L120 90 L160 120 L200 70 L240 80 L300 40 L300 220 L0 220 Z" fill="url(#proc)" />
-                <path d="M0 160 L40 130 L80 140 L120 90 L160 120 L200 70 L240 80 L300 40" stroke="#5B8EF0" strokeWidth="1.8" fill="none" />
-                {[160, 130, 140, 90, 120, 70, 80, 40].map((y, i) => (
-                  <circle key={i} cx={i * 40} cy={y} r="2.5" fill="#B9D0FF" />
-                ))}
-              </svg>
-            </div>
-            <div className="flex items-center gap-3 self-end rounded-card border border-white/10 bg-surface/60 p-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/15 text-accent">
-                <Landmark className="h-4 w-4" />
-              </div>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-muted">
-                Step 3 · Get Funded
-              </span>
-            </div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-white/10 bg-elevated">
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(520px 320px at 30% 20%, rgba(91,142,240,0.25), transparent 65%)",
+              }}
+            />
+            <svg viewBox="0 0 300 220" className="absolute inset-0 h-full w-full opacity-80">
+              <defs>
+                <linearGradient id="proc" x1="0" y1="0" x2="0" y2="220" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#5B8EF0" stopOpacity="0.4" />
+                  <stop offset="1" stopColor="#5B8EF0" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path d="M0 160 L40 130 L80 140 L120 90 L160 120 L200 70 L240 80 L300 40 L300 220 L0 220 Z" fill="url(#proc)" />
+              <path d="M0 160 L40 130 L80 140 L120 90 L160 120 L200 70 L240 80 L300 40" stroke="#5B8EF0" strokeWidth="1.8" fill="none" />
+              {[160, 130, 140, 90, 120, 70, 80, 40].map((y, i) => (
+                <circle key={i} cx={i * 40} cy={y} r="2.5" fill="#B9D0FF" />
+              ))}
+            </svg>
           </div>
 
           <div>

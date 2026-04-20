@@ -25,7 +25,7 @@ export function FundingPathBuilder() {
           <div className="rounded-card border border-white/10 bg-surface/60 p-6">
             <StepNumber n={2} label="Account Size" active />
             <div className="mt-5">
-              <AccountSizePicker sizes={["10k", "25k", "50k", "100k", "250k"]} />
+              <AccountSizePicker sizes={["10k", "25k", "50k", "100k", "200k"]} />
             </div>
           </div>
           <div className="flex flex-col">

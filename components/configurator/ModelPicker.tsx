@@ -4,17 +4,16 @@ import { PillTabs } from "@/components/ui/PillTabs";
 import { useChallenge } from "./ChallengeProvider";
 import {
   type ChallengeModel,
-  type ChallengeSteps,
+  availableSteps,
   modelLabels,
   stepsDescriptions,
   stepsLabels,
 } from "@/components/data/challenges";
 import { cn } from "@/lib/cn";
 
-const STEP_OPTIONS: ChallengeSteps[] = ["instant", "rapid", "one-step", "two-step"];
-
 export function ModelPicker({ variant = "stacked" }: { variant?: "stacked" | "inline" }) {
   const { model, steps, setModel, setSteps } = useChallenge();
+  const stepOptions = availableSteps(model);
 
   const modelOptions = (Object.keys(modelLabels) as ChallengeModel[]).map((m) => ({
     value: m,
@@ -32,10 +31,13 @@ export function ModelPicker({ variant = "stacked" }: { variant?: "stacked" | "in
       <div
         className={cn(
           "grid gap-2.5",
-          variant === "inline" ? "grid-cols-4" : "grid-cols-1",
+          variant === "stacked" && "grid-cols-1",
+          variant === "inline" && stepOptions.length === 2 && "grid-cols-2",
+          variant === "inline" && stepOptions.length === 3 && "grid-cols-3",
+          variant === "inline" && stepOptions.length === 4 && "grid-cols-4",
         )}
       >
-        {STEP_OPTIONS.map((s) => {
+        {stepOptions.map((s) => {
           const active = steps === s;
           return (
             <button

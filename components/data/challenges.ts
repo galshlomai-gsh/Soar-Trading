@@ -51,9 +51,15 @@ export const platformLabels: Record<Platform, string> = {
   matchtrader: "Match Trader",
 };
 
-// TODO: replace with real pricing matrix supplied by stakeholder.
-// Placeholder rows exercise every combination used on screen so the UI renders
-// end-to-end; numbers are illustrative only.
+// Steps available per model (mirrors soar-funding.com/en — Classic has no Rapid).
+export const modelSteps: Record<ChallengeModel, ChallengeSteps[]> = {
+  bnpl: ["instant", "rapid", "one-step", "two-step"],
+  classic: ["instant", "one-step", "two-step"],
+};
+
+// Pricing rows transcribed from the reference. Rows not listed here are
+// treated as unavailable and hidden by the pickers. Extend this list to
+// unlock more combinations — do not add placeholder numbers.
 export const pricing: ChallengePrice[] = [
   {
     model: "classic",
@@ -82,19 +88,6 @@ export const pricing: ChallengePrice[] = [
     easAllowed: true,
   },
   {
-    model: "classic",
-    steps: "one-step",
-    size: "100k",
-    fee: 449,
-    profitTarget: "8%",
-    dailyDD: "4%",
-    maxDD: "8%",
-    minDays: 0,
-    newsAllowed: true,
-    weekendHold: true,
-    easAllowed: true,
-  },
-  {
     model: "bnpl",
     steps: "instant",
     size: "100k",
@@ -102,19 +95,6 @@ export const pricing: ChallengePrice[] = [
     profitTarget: "No target",
     dailyDD: "4%",
     maxDD: "8%",
-    minDays: 0,
-    newsAllowed: true,
-    weekendHold: true,
-    easAllowed: true,
-  },
-  {
-    model: "bnpl",
-    steps: "rapid",
-    size: "50k",
-    fee: 199,
-    profitTarget: "6%",
-    dailyDD: "3%",
-    maxDD: "6%",
     minDays: 0,
     newsAllowed: true,
     weekendHold: true,
@@ -129,5 +109,23 @@ export function findPrice(
 ): ChallengePrice | undefined {
   return pricing.find(
     (p) => p.model === model && p.steps === steps && p.size === size,
+  );
+}
+
+export function availableSteps(model: ChallengeModel): ChallengeSteps[] {
+  return modelSteps[model].filter((steps) =>
+    pricing.some((p) => p.model === model && p.steps === steps),
+  );
+}
+
+export function availableSizes(
+  model: ChallengeModel,
+  steps: ChallengeSteps,
+  from: AccountSize[],
+): AccountSize[] {
+  return from.filter((size) =>
+    pricing.some(
+      (p) => p.model === model && p.steps === steps && p.size === size,
+    ),
   );
 }

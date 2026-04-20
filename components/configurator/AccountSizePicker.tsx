@@ -1,10 +1,10 @@
 "use client";
 
 import { useChallenge } from "./ChallengeProvider";
-import type { AccountSize } from "@/components/data/challenges";
+import { type AccountSize, availableSizes } from "@/components/data/challenges";
 import { cn } from "@/lib/cn";
 
-const SIZES: AccountSize[] = ["10k", "25k", "50k", "100k", "250k"];
+const SIZES: AccountSize[] = ["10k", "25k", "50k", "100k", "200k"];
 
 const DISPLAY: Record<AccountSize, string> = {
   "10k": "$10k",
@@ -23,7 +23,15 @@ export function AccountSizePicker({
   sizes?: AccountSize[];
   columns?: 2 | 3;
 }) {
-  const { size, setSize } = useChallenge();
+  const { model, steps, size, setSize } = useChallenge();
+  const visible = availableSizes(model, steps, sizes);
+  if (visible.length === 0) {
+    return (
+      <p className="text-xs text-ink-muted">
+        No account sizes available for this configuration.
+      </p>
+    );
+  }
   return (
     <div
       className={cn(
@@ -31,7 +39,7 @@ export function AccountSizePicker({
         columns === 2 ? "grid-cols-2" : "grid-cols-3",
       )}
     >
-      {sizes.map((s) => {
+      {visible.map((s) => {
         const active = size === s;
         return (
           <button

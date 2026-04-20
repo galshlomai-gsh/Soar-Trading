@@ -11,8 +11,4 @@ export const faqItems = [
     q: "How often can I request a payout?",
     a: "Funded traders can request a payout every 14 days by default, with on-demand options available after consistency checks. Most payouts clear in under 24 hours via crypto or wire transfer.",
   },
-  {
-    q: "Are Expert Advisors and copy trading allowed?",
-    a: "Yes. Expert Advisors, algorithmic strategies and copy trading are fully supported across all challenge types. We only require that strategies comply with our anti-martingale and exploit-free guidelines.",
-  },
 ];
