@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Container } from "@/components/ui/Container";
+import { PageHero } from "@/components/layout/PageHero";
 import { FaqTabs } from "@/components/sections/FaqTabs";
 
 export const metadata: Metadata = {
@@ -12,14 +11,11 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <section className="pt-20">
-        <Container size="narrow" className="text-center">
-          <SectionHeading
-            title="Frequently Asked Questions"
-            subtitle="Clear answers about challenges, rules, payouts and compliance. Where an authoritative answer isn't confirmed, we point you to the Terms of Service."
-          />
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="Frequently asked"
+        title="Answers before you ask."
+        subtitle="Clear answers about challenges, rules, payouts and compliance. Where an authoritative answer isn't confirmed, we point you to the Terms of Service."
+      />
       <FaqTabs />
     </>
   );

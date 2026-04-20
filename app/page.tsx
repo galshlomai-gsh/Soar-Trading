@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import { Hero } from "@/components/sections/Hero";
+import { TrustedByStrip } from "@/components/sections/TrustedByStrip";
+import { PayoutMarquee } from "@/components/sections/PayoutMarquee";
 import { AdvantageGrid } from "@/components/sections/AdvantageGrid";
 import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
@@ -15,6 +17,8 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <TrustedByStrip />
+      <PayoutMarquee />
       <AdvantageGrid />
       <Suspense fallback={null}>
         <ChallengeProvider>

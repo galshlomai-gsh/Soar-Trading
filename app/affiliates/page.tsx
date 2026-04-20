@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/Button";
 import {
   LinkIcon,
@@ -44,13 +44,15 @@ const cards = [
 
 export default function Page() {
   return (
-    <section className="pt-14 pb-24 md:pt-20">
-      <Container size="wide">
-        <SectionHeading
-          title="Partner With Soar Funding"
-          subtitle="Promote Soar Funding to traders and grow with the brand. Full affiliate details, tracking, and commission terms will be confirmed before launch."
-        />
-        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
+    <>
+      <PageHero
+        eyebrow="Affiliates"
+        title="Partner With Soar Funding"
+        subtitle="Promote Soar Funding to traders and grow with the brand. Full affiliate details, tracking, and commission terms will be confirmed before launch."
+      />
+      <section className="pt-12 pb-24">
+        <Container size="wide">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {cards.map((c) => {
             const Icon = c.icon;
             return (
@@ -74,7 +76,8 @@ export default function Page() {
             Contact Support
           </Button>
         </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </>
   );
 }

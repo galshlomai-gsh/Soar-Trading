@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { PageHero } from "@/components/layout/PageHero";
 import { StepNumber } from "@/components/ui/StepNumber";
 import { ChallengeProvider } from "@/components/configurator/ChallengeProvider";
 import { ChallengeTypePicker } from "@/components/configurator/ChallengeTypePicker";
@@ -21,14 +21,14 @@ export default function ChallengesPage() {
   return (
     <Suspense fallback={null}>
       <ChallengeProvider>
-        <section className="pt-14 pb-20 md:pt-20">
+        <PageHero
+          eyebrow="Challenges"
+          title="Choose Your Soar Funding Challenge"
+          subtitle="Pick the challenge that matches your trading style. Every account is simulated, rule-based, and built to assess consistency before access to a simulated funded account."
+        />
+        <section className="pt-12 pb-20">
           <Container size="wide">
-            <SectionHeading
-              title="Choose Your Soar Funding Challenge"
-              emphasize="Challenge"
-              subtitle="Pick the challenge that matches your trading style. Every account is simulated, rule-based, and built to assess consistency before access to a simulated funded account."
-            />
-            <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-[1.1fr_1fr_1fr]">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-[1.1fr_1fr_1fr]">
               <Panel>
                 <StepNumber n={1} label="Challenge" active />
                 <div className="mt-5">
