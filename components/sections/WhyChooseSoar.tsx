@@ -1,54 +1,76 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SoarMark } from "@/components/brand/LogoSoar";
 import {
   Bot,
-  Clock,
   Coins,
   Headphones,
   Infinity as InfinityIcon,
+  LayoutGrid,
+  Layers,
+  Repeat,
   ScrollText,
+  ShieldCheck,
 } from "lucide-react";
 
 const features = [
   {
-    icon: Bot,
-    title: "EAs allowed, with approval",
-    body:
-      "Expert Advisors may be used where approved and compliant with Soar Funding's trading rules.",
-  },
-  {
-    icon: Headphones,
-    title: "24/7 support",
-    body:
-      "Reach our team any day of the week at support@soar-funding.com.",
-  },
-  {
     icon: Coins,
     title: "100% first payout",
     body:
-      "Keep 100% of your first payout. Ongoing payouts are paid at 80% bi-weekly.",
+      "Keep 100% of your first payout on standard challenges. Ongoing payouts are 80% bi-weekly.",
+  },
+  {
+    icon: Repeat,
+    title: "80% ongoing, bi-weekly",
+    body:
+      "Eligible payouts are available bi-weekly after the first 30 calendar days.",
   },
   {
     icon: InfinityIcon,
     title: "No time limits",
     body:
-      "Trade at your own pace. There are no minimum or maximum trading days on our evaluations.",
+      "Trade at your own pace. There are no minimum or maximum trading days.",
   },
   {
-    icon: Clock,
-    title: "100+ assets",
+    icon: ScrollText,
+    title: "Clear, published rules",
+    body:
+      "Drawdown limits, profit targets and consistency rules — all in the Terms of Service.",
+  },
+  {
+    icon: Layers,
+    title: "5 challenge types",
+    body:
+      "1 Step, 2 Step, BNPL 1 Step, BNPL 2 Step and Rapid Runway. Pick what suits your style.",
+  },
+  {
+    icon: LayoutGrid,
+    title: "100+ markets",
     body:
       "Forex majors and minors, metals, indices, crypto and oil — all in one account.",
   },
   {
-    icon: ScrollText,
-    title: "Clear challenge rules",
+    icon: ShieldCheck,
+    title: "Simulated funded accounts",
     body:
-      "Simple, rule-based evaluation. Profit targets, drawdown limits and payout terms on every page.",
+      "Every funded account is simulated. Clear legal positioning on every page.",
+  },
+  {
+    icon: Bot,
+    title: "EAs allowed, with approval",
+    body:
+      "Expert Advisors may be used where reviewed and compliant with the rules.",
+  },
+  {
+    icon: Headphones,
+    title: "Fast support",
+    body:
+      "Email support@soar-funding.com — we respond quickly to any account question.",
   },
 ];
 
-export function AdvantageGrid() {
+export function WhyChooseSoar() {
   return (
     <section className="relative overflow-hidden bg-sectionLight py-24">
       <div
@@ -59,6 +81,12 @@ export function AdvantageGrid() {
             "radial-gradient(700px 400px at 10% 10%, rgba(91,142,240,0.12), transparent 60%), radial-gradient(600px 400px at 90% 90%, rgba(91,142,240,0.08), transparent 60%)",
         }}
       />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-[-40px] top-[-40px] opacity-[0.06]"
+      >
+        <SoarMark size={280} />
+      </div>
       <Container size="wide" className="relative">
         <div className="flex flex-col items-start gap-10 md:flex-row md:items-end md:justify-between">
           <SectionHeading
@@ -69,8 +97,8 @@ export function AdvantageGrid() {
             emphasize="serious traders."
           />
           <p className="max-w-md text-sm leading-relaxed text-sectionLightInk/60">
-            Clear rules. Simulated funded accounts. A simple payout structure.
-            Support when you need it.
+            Simulated trading challenges, straightforward rules, and a simple
+            payout structure. No hidden gates and no inflated claims.
           </p>
         </div>
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -79,7 +107,7 @@ export function AdvantageGrid() {
             return (
               <div
                 key={f.title}
-                className="rounded-[18px] border border-sectionLightInk/8 bg-white p-7 shadow-[0_10px_40px_-24px_rgba(11,18,32,0.3)]"
+                className="group rounded-[18px] border border-sectionLightInk/8 bg-white p-7 shadow-[0_10px_40px_-24px_rgba(11,18,32,0.3)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-22px_rgba(11,18,32,0.4)]"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent-deep">
                   <Icon className="h-5 w-5" strokeWidth={2} />

@@ -1,6 +1,17 @@
 // Answers are conservative: where an authoritative answer is not confirmed,
 // the copy points the reader to the Terms of Service or support.
 
+import {
+  Banknote,
+  Info,
+  type LucideIcon,
+  Receipt,
+  Rocket,
+  ScrollText,
+  ShieldCheck,
+  Target,
+} from "lucide-react";
+
 export type FaqCategory =
   | "general"
   | "challenges"
@@ -16,14 +27,18 @@ export interface FaqItem {
   category: FaqCategory;
 }
 
-export const faqCategories: { id: FaqCategory; label: string }[] = [
-  { id: "general", label: "General" },
-  { id: "challenges", label: "Challenges" },
-  { id: "bnpl", label: "BNPL" },
-  { id: "rapid-runway", label: "Rapid Runway" },
-  { id: "rules", label: "Rules" },
-  { id: "payouts", label: "Payouts" },
-  { id: "compliance", label: "Compliance & Policies" },
+export const faqCategories: {
+  id: FaqCategory;
+  label: string;
+  icon: LucideIcon;
+}[] = [
+  { id: "general", label: "General", icon: Info },
+  { id: "challenges", label: "Challenges", icon: Target },
+  { id: "bnpl", label: "BNPL", icon: Receipt },
+  { id: "rapid-runway", label: "Rapid Runway", icon: Rocket },
+  { id: "rules", label: "Rules", icon: ScrollText },
+  { id: "payouts", label: "Payouts", icon: Banknote },
+  { id: "compliance", label: "Compliance & Policies", icon: ShieldCheck },
 ];
 
 const SAFE = "Please contact support before assuming this is available.";

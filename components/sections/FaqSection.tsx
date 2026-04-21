@@ -4,13 +4,19 @@ import { useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { topFaq } from "@/components/data/faq";
+import { faqItems } from "@/components/data/faq";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 
+const INITIAL_VISIBLE = 6;
+const STEP = 6;
+
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(0);
-  const items = topFaq();
+  const [visible, setVisible] = useState(INITIAL_VISIBLE);
+  const items = faqItems.slice(0, visible);
+  const remaining = faqItems.length - visible;
+
   return (
     <section className="py-24">
       <Container size="narrow">
@@ -43,7 +49,9 @@ export function FaqSection() {
                 <div
                   className={cn(
                     "grid overflow-hidden transition-all duration-300",
-                    isOpen ? "grid-rows-[1fr] opacity-100 mt-2" : "grid-rows-[0fr] opacity-0",
+                    isOpen
+                      ? "mt-2 grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0",
                   )}
                 >
                   <div className="overflow-hidden">
@@ -56,7 +64,17 @@ export function FaqSection() {
             );
           })}
         </ul>
-        <div className="mt-10 text-center">
+
+        <div className="mt-10 flex flex-col items-center gap-3">
+          {remaining > 0 && (
+            <button
+              type="button"
+              onClick={() => setVisible((v) => v + STEP)}
+              className="rounded-full border border-white/10 bg-surface/60 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink hover:border-accent/40"
+            >
+              Show {Math.min(STEP, remaining)} more questions
+            </button>
+          )}
           <Link
             href="/faq"
             className="text-xs font-semibold uppercase tracking-[0.2em] text-accent hover:text-accent-soft"

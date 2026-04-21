@@ -45,11 +45,13 @@ function metricsFor(spec: ChallengeSpec) {
         .filter((p) => p.name !== "Funded")
         .map((p) => (p.profitTarget ? `${p.name} ${p.profitTarget}` : p.name))
         .join(" · "),
+      note: undefined,
     },
     {
       icon: TrendingDown,
       label: "Daily loss",
       value: ev?.dailyLoss ?? "—",
+      note: ev?.dailyLossNote,
       tone: "warn" as const,
     },
     {
@@ -179,11 +181,8 @@ function ChallengeCard({ spec }: { spec: ChallengeSpec }) {
       </div>
 
       <div className="grid grid-cols-1 divide-y divide-white/5 border-t border-white/10 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
-        {metrics.map(({ icon: Icon, label, value, tone }) => (
-          <div
-            key={label}
-            className="flex items-start gap-3 p-4"
-          >
+        {metrics.map(({ icon: Icon, label, value, note, tone }) => (
+          <div key={label} className="flex items-start gap-3 p-4">
             <div
               className={cn(
                 "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
@@ -201,6 +200,11 @@ function ChallengeCard({ spec }: { spec: ChallengeSpec }) {
               <div className="mt-0.5 break-words text-xs font-semibold leading-snug text-ink">
                 {value}
               </div>
+              {note && (
+                <div className="mt-1 text-[11px] leading-snug text-ink-muted">
+                  {note}
+                </div>
+              )}
             </div>
           </div>
         ))}
