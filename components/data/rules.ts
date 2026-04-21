@@ -1,9 +1,25 @@
 // Trading rules content sourced from the Soar Funding Terms of Service.
 
+import {
+  AlertCircle,
+  AlertTriangle,
+  Bot,
+  Copy,
+  Flame,
+  Gauge,
+  type LucideIcon,
+  Megaphone,
+  MonitorSmartphone,
+  ShieldAlert,
+  Undo2,
+} from "lucide-react";
+
 export interface RuleGroup {
   id: string;
   title: string;
   intro?: string;
+  icon: LucideIcon;
+  tone: "accent" | "warn" | "danger";
   items: { label: string; body?: string }[];
 }
 
@@ -25,6 +41,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "news-trading",
     title: "News Trading",
+    icon: Megaphone,
+    tone: "accent",
     items: [
       {
         label: "High-impact news window",
@@ -36,6 +54,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "expert-advisors",
     title: "Expert Advisors",
+    icon: Bot,
+    tone: "accent",
     items: [
       {
         label: "Approval required",
@@ -47,6 +67,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "copy-trading",
     title: "Copy Trading & Hedging",
+    icon: Copy,
+    tone: "accent",
     items: [
       {
         label: "Not permitted",
@@ -58,6 +80,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "toxic-trading",
     title: "Toxic Trading",
+    icon: Flame,
+    tone: "danger",
     items: [
       {
         label: "Definition",
@@ -69,6 +93,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "soft-breaches",
     title: "Soft Breaches",
+    icon: AlertCircle,
+    tone: "warn",
     intro:
       "Soft breaches are behaviours that violate trading rules without triggering immediate account termination.",
     items: [
@@ -91,6 +117,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "hard-breaches",
     title: "Hard Breaches",
+    icon: AlertTriangle,
+    tone: "danger",
     intro:
       "Hard breaches are serious violations that can terminate the account outright.",
     items: [
@@ -104,6 +132,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "consistency",
     title: "Consistency Rules (funded stage)",
+    icon: Gauge,
+    tone: "accent",
     intro:
       "Maximum share of total profits that can be made in a single trading day on a simulated funded account.",
     items: [
@@ -117,6 +147,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "ip-vpn",
     title: "IP, VPS & VPN",
+    icon: MonitorSmartphone,
+    tone: "accent",
     items: [
       {
         label: "Location consistency",
@@ -128,6 +160,8 @@ export const ruleGroups: RuleGroup[] = [
   {
     id: "reviews",
     title: "Reviews & Retrospective Action",
+    icon: Undo2,
+    tone: "warn",
     items: [
       {
         label: "Account reviews",
@@ -142,3 +176,6 @@ export const ruleGroups: RuleGroup[] = [
     ],
   },
 ];
+
+// Re-export for convenience when building jump navs.
+export { ShieldAlert };

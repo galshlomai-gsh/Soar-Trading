@@ -3,11 +3,13 @@ import { cn } from "@/lib/cn";
 export function MetricTile({
   label,
   value,
+  note,
   tone = "default",
   className,
 }: {
   label: string;
   value: React.ReactNode;
+  note?: React.ReactNode;
   tone?: "default" | "warn" | "accent";
   className?: string;
 }) {
@@ -26,6 +28,11 @@ export function MetricTile({
       >
         {value}
       </span>
+      {note && (
+        <span className="text-[11px] leading-snug text-ink-muted">
+          {note}
+        </span>
+      )}
     </div>
   );
 }

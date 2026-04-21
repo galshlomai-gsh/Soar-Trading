@@ -41,6 +41,13 @@ export interface ChallengePhase {
   profitTarget?: string;
   maxLoss: string;
   dailyLoss: string;
+  /**
+   * Optional explanatory note rendered smaller next to `dailyLoss`.
+   * Keeps the primary value short and scannable (e.g. "3% fixed")
+   * while surfacing important detail (EOD basis) in the secondary
+   * line.
+   */
+  dailyLossNote?: string;
   drawdownType: DrawdownType;
   profitSplit?: string;
   payoutTiming?: string;
@@ -84,7 +91,8 @@ export const challenges: ChallengeSpec[] = [
         name: "Evaluation",
         profitTarget: "10%",
         maxLoss: "8% trailing",
-        dailyLoss: "3% fixed (EOD equity or balance, whichever is higher)",
+        dailyLoss: "3% fixed",
+        dailyLossNote: "EOD equity or balance, whichever is higher",
         drawdownType: "trailing",
       },
       {
@@ -118,14 +126,16 @@ export const challenges: ChallengeSpec[] = [
         name: "Phase 1",
         profitTarget: "8%",
         maxLoss: "8% fixed",
-        dailyLoss: "4% fixed (EOD equity or balance, whichever is higher)",
+        dailyLoss: "4% fixed",
+        dailyLossNote: "EOD equity or balance, whichever is higher",
         drawdownType: "fixed",
       },
       {
         name: "Phase 2",
         profitTarget: "6%",
         maxLoss: "8% fixed",
-        dailyLoss: "4% fixed (EOD equity or balance, whichever is higher)",
+        dailyLoss: "4% fixed",
+        dailyLossNote: "EOD equity or balance, whichever is higher",
         drawdownType: "fixed",
       },
       {

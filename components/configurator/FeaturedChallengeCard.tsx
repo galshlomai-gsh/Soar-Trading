@@ -46,6 +46,7 @@ export function FeaturedChallengeCard() {
         <MetricTile
           label="Daily Loss Limit"
           value={firstEval?.dailyLoss ?? "—"}
+          note={firstEval?.dailyLossNote}
           tone="warn"
         />
         <MetricTile
