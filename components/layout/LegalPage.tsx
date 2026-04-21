@@ -21,7 +21,12 @@ export function LegalPage({
 }) {
   return (
     <>
-      <PageHero eyebrow="Legal" title={title} subtitle={subtitle} />
+      <PageHero
+        eyebrow="Legal"
+        title={title}
+        subtitle={subtitle}
+        breadcrumbs={[{ label: "Legal" }, { label: title }]}
+      />
       <section className="pt-12 pb-24">
         <Container size="narrow">
           {lastUpdated && (

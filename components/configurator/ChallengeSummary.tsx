@@ -2,6 +2,7 @@
 
 import { useChallenge } from "./ChallengeProvider";
 import { Button } from "@/components/ui/Button";
+import { TrustChips } from "@/components/ui/TrustChips";
 import { fundedPhase, sizeLabel } from "@/components/data/challenges";
 
 export function ChallengeSummary({
@@ -52,6 +53,9 @@ export function ChallengeSummary({
       <Button size="lg" fullWidth className="mt-6">
         {title}
       </Button>
+      <div className="mt-4">
+        <TrustChips align="center" />
+      </div>
       <p className="mt-3 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-muted/70">
         {price !== undefined
           ? "Refundable on first payout"

@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { TrustChips } from "@/components/ui/TrustChips";
 
 export function FinalCta() {
   return (
@@ -27,7 +28,10 @@ export function FinalCta() {
                 Choose Your Challenge
               </Button>
             </div>
-            <div className="mt-5 text-[10px] font-semibold uppercase tracking-[0.24em] text-ink-muted/70">
+            <div className="mt-6 flex justify-center">
+              <TrustChips align="center" />
+            </div>
+            <div className="mt-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-ink-muted/70">
               Simulated trading only · No deposits
             </div>
           </div>

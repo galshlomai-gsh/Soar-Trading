@@ -45,6 +45,7 @@ export default function Page() {
         eyebrow="Rules"
         title="Trading Rules"
         subtitle="Clear rules before you start. Trade your strategy, avoid restricted behaviour, and stay compliant through every stage."
+        breadcrumbs={[{ label: "Trading Rules" }]}
       />
 
       <section className="pt-10 pb-4">

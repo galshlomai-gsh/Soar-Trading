@@ -3,6 +3,7 @@ import { HeroBackdrop } from "@/components/brand/HeroBackdrop";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { SoarMark } from "@/components/brand/LogoSoar";
+import { TrustChips } from "@/components/ui/TrustChips";
 import { Sparkles } from "lucide-react";
 import { challenges } from "@/components/data/challenges";
 
@@ -66,7 +67,10 @@ export function Hero() {
                 </span>
               )}
             </div>
-            <p className="mt-8 text-xs text-ink-muted">
+            <div className="mt-6">
+              <TrustChips align="left" />
+            </div>
+            <p className="mt-6 text-xs text-ink-muted">
               Simulated trading only. No deposits. No brokerage services. No
               investment advice.
             </p>

@@ -15,6 +15,7 @@ export default function Page() {
         eyebrow="Frequently asked"
         title="Answers before you ask."
         subtitle="Clear answers about challenges, rules, payouts and compliance. Where an authoritative answer isn't confirmed, we point you to the Terms of Service."
+        breadcrumbs={[{ label: "FAQ" }]}
       />
       <FaqTabs />
     </>

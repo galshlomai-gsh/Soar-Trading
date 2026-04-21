@@ -2,6 +2,7 @@
 
 import { useChallenge } from "./ChallengeProvider";
 import { challenges } from "@/components/data/challenges";
+import { TierChip } from "@/components/ui/TierChip";
 import { cn } from "@/lib/cn";
 
 export function ChallengeTypePicker() {
@@ -23,13 +24,16 @@ export function ChallengeTypePicker() {
                 : "border-white/10 bg-surface/60 text-ink-muted hover:border-white/20 hover:text-ink",
             )}
           >
-            <div
-              className={cn(
-                "text-sm font-bold tracking-tight",
-                active ? "text-ink" : "text-ink/90",
-              )}
-            >
-              {c.label}
+            <div className="flex items-start justify-between gap-2">
+              <div
+                className={cn(
+                  "text-sm font-bold tracking-tight",
+                  active ? "text-ink" : "text-ink/90",
+                )}
+              >
+                {c.label}
+              </div>
+              <TierChip tier={c.tier} />
             </div>
             <div
               className={cn(

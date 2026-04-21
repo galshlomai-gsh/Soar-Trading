@@ -18,6 +18,8 @@ import {
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/Button";
+import { TrustChips } from "@/components/ui/TrustChips";
+import { PayoutCalculator } from "@/components/sections/PayoutCalculator";
 
 export const metadata: Metadata = {
   title: "Soar Funding Payout Policy | Profit Split & Withdrawal Rules",
@@ -118,6 +120,7 @@ export default function Page() {
         eyebrow="Payouts"
         title="Payout Policy"
         subtitle="For standard funded accounts, the first payout is available after 30 calendar days, subject to KYC, account review, rule compliance, and payout approval."
+        breadcrumbs={[{ label: "Payout Policy" }]}
       />
 
       <section className="pt-10">
@@ -140,6 +143,8 @@ export default function Page() {
           </div>
         </Container>
       </section>
+
+      <PayoutCalculator variant="compact" />
 
       <section className="pt-14">
         <Container size="wide">
@@ -268,10 +273,11 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-col items-center gap-4">
             <Button href="/challenges" size="lg">
               Start Your Challenge
             </Button>
+            <TrustChips align="center" />
           </div>
         </Container>
       </section>

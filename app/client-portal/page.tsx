@@ -16,6 +16,7 @@ export default function Page() {
         eyebrow="Portal"
         title="Client Portal"
         subtitle="Manage your Soar Funding account, view active challenges and track payouts."
+        breadcrumbs={[{ label: "Client Portal" }]}
       />
       <section className="pt-12 pb-24">
         <Container size="narrow">

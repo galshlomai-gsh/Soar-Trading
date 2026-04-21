@@ -10,6 +10,14 @@ export type ChallengeType =
 
 export type DrawdownType = "fixed" | "trailing";
 
+export type RiskTier = "conservative" | "moderate" | "aggressive";
+
+export const tierLabel: Record<RiskTier, string> = {
+  conservative: "Conservative",
+  moderate: "Moderate",
+  aggressive: "Aggressive",
+};
+
 export type AccountSize = "10k" | "25k" | "50k" | "100k" | "200k";
 
 export const ALL_SIZES: AccountSize[] = [
@@ -61,6 +69,7 @@ export interface ChallengeSpec {
   label: string;
   shortLabel: string;
   tagline: string;
+  tier: RiskTier;
   sizes: AccountSize[];
   /**
    * Only set for challenges with publicly confirmed pricing. Undefined or
@@ -77,6 +86,7 @@ export const challenges: ChallengeSpec[] = [
     label: "1 Step",
     shortLabel: "1 Step",
     tagline: "Single-phase evaluation with trailing drawdown.",
+    tier: "moderate",
     bestFor: "Traders who want to reach the simulated funded stage in a single phase.",
     sizes: ALL_SIZES,
     pricing: {
@@ -112,6 +122,7 @@ export const challenges: ChallengeSpec[] = [
     label: "2 Step",
     shortLabel: "2 Step",
     tagline: "Standard two-phase evaluation with fixed drawdown.",
+    tier: "conservative",
     bestFor: "Traders who prefer structured evaluation windows and fixed-equity drawdown.",
     sizes: ALL_SIZES,
     pricing: {
@@ -155,6 +166,7 @@ export const challenges: ChallengeSpec[] = [
     label: "Buy Now Pay Later — 1 Step",
     shortLabel: "BNPL 1 Step",
     tagline: "One-phase challenge with activation fee due after passing.",
+    tier: "aggressive",
     bestFor: "Traders who want a single-phase path with a deferred activation fee.",
     sizes: ALL_SIZES,
     // Pricing intentionally omitted until confirmed.
@@ -185,6 +197,7 @@ export const challenges: ChallengeSpec[] = [
     label: "Buy Now Pay Later — 2 Step",
     shortLabel: "BNPL 2 Step",
     tagline: "Two-phase challenge with activation fee due after passing.",
+    tier: "moderate",
     bestFor: "Traders who want to start with reduced upfront cost.",
     sizes: ALL_SIZES,
     phases: [
@@ -222,6 +235,7 @@ export const challenges: ChallengeSpec[] = [
     label: "Rapid Runway",
     shortLabel: "Rapid Runway",
     tagline: "Phase 1 is skipped — evaluation starts at Phase 2.",
+    tier: "aggressive",
     bestFor: "Traders who want a shorter path to the simulated funded stage.",
     sizes: ALL_SIZES,
     phases: [

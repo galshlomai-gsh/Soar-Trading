@@ -12,6 +12,7 @@ import {
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/layout/PageHero";
 import { Button } from "@/components/ui/Button";
+import { TrustChips } from "@/components/ui/TrustChips";
 
 export const metadata: Metadata = {
   title: "Partner With Soar Funding | Affiliates",
@@ -78,6 +79,7 @@ export default function Page() {
         eyebrow="Affiliates"
         title="Partner With Soar Funding"
         subtitle="Promote Soar Funding to traders and grow with the brand. Full affiliate details, tracking, and commission terms will be confirmed before launch."
+        breadcrumbs={[{ label: "Affiliates" }]}
       />
 
       <section className="pt-12">
@@ -180,6 +182,9 @@ export default function Page() {
                   Contact Support
                   <ArrowRight className="ml-2 h-4 w-4" strokeWidth={2.5} />
                 </Button>
+              </div>
+              <div className="mt-6 flex justify-center">
+                <TrustChips align="center" />
               </div>
             </div>
           </div>

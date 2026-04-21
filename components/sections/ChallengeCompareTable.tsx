@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Meter } from "@/components/ui/Meter";
+import { TierChip } from "@/components/ui/TierChip";
 import {
   challenges,
   fundedPhase,
@@ -18,6 +20,14 @@ import {
   type ChallengeSpec,
 } from "@/components/data/challenges";
 import { cn } from "@/lib/cn";
+
+function pct(value: string | undefined): number {
+  if (!value) return 0;
+  const m = value.match(/(\d+(?:\.\d+)?)\s*%/);
+  return m ? parseFloat(m[1]) : 0;
+}
+
+const METER_SCALE = 15;
 
 function priceRange(spec: ChallengeSpec): string {
   if (!spec.pricing) return "To be confirmed";
@@ -128,7 +138,10 @@ function ChallengeCard({ spec }: { spec: ChallengeSpec }) {
   const metrics = metricsFor(spec);
   const price = priceRange(spec);
   const hasPrice = spec.pricing !== undefined;
-  const sizesCell = spec.sizes.map((s) => sizeShortLabel[s]).join(" · ");
+  const firstEval = spec.phases.find((p) => p.name !== "Funded");
+  const targetPct = pct(firstEval?.profitTarget);
+  const dailyPct = pct(firstEval?.dailyLoss);
+  const maxPct = pct(firstEval?.maxLoss);
 
   return (
     <div className="relative flex flex-col overflow-hidden rounded-[20px] border border-white/10 bg-surface/60">
@@ -143,10 +156,13 @@ function ChallengeCard({ spec }: { spec: ChallengeSpec }) {
         />
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">
-              {spec.shortLabel}
+            <div className="flex flex-wrap items-center gap-2">
+              <TierChip tier={spec.tier} />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+                {spec.shortLabel}
+              </span>
             </div>
-            <h3 className="mt-2 text-xl font-extrabold tracking-tight text-ink">
+            <h3 className="mt-3 text-xl font-extrabold tracking-tight text-ink">
               {spec.label}
             </h3>
             <p className="mt-1.5 text-xs leading-relaxed text-ink-muted">
@@ -166,6 +182,27 @@ function ChallengeCard({ spec }: { spec: ChallengeSpec }) {
               {hasPrice ? "One-time fee" : "Pricing TBC"}
             </div>
           </div>
+        </div>
+
+        <div className="relative mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <Meter
+            label="Target"
+            value={firstEval?.profitTarget ?? "—"}
+            percent={(targetPct / METER_SCALE) * 100}
+            tone="accent"
+          />
+          <Meter
+            label="Daily"
+            value={firstEval?.dailyLoss ?? "—"}
+            percent={(dailyPct / METER_SCALE) * 100}
+            tone="warn"
+          />
+          <Meter
+            label="Max loss"
+            value={firstEval?.maxLoss ?? "—"}
+            percent={(maxPct / METER_SCALE) * 100}
+            tone="warn"
+          />
         </div>
 
         <div className="relative mt-5 flex flex-wrap items-center gap-1.5">

@@ -1,15 +1,21 @@
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
+import {
+  Breadcrumbs,
+  type BreadcrumbItem,
+} from "@/components/layout/Breadcrumbs";
 
 export function PageHero({
   eyebrow,
   title,
   subtitle,
+  breadcrumbs,
   children,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
   subtitle?: React.ReactNode;
+  breadcrumbs?: BreadcrumbItem[];
   children?: React.ReactNode;
 }) {
   return (
@@ -28,6 +34,11 @@ export function PageHero({
       />
       <Container size="narrow" className="relative pt-20 pb-14 md:pt-24 md:pb-20">
         <div className="text-center">
+          {breadcrumbs && breadcrumbs.length > 0 && (
+            <div className="mb-6">
+              <Breadcrumbs items={breadcrumbs} />
+            </div>
+          )}
           {eyebrow && (
             <div className="flex justify-center">
               <Badge tone="accent">{eyebrow}</Badge>

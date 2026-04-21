@@ -25,6 +25,7 @@ export default function ChallengesPage() {
           eyebrow="Challenges"
           title="Choose Your Soar Funding Challenge"
           subtitle="Pick the challenge that matches your trading style. Every account is simulated, rule-based, and built to assess consistency before access to a simulated funded account."
+          breadcrumbs={[{ label: "Challenges" }]}
         />
         <section className="pt-12 pb-20">
           <Container size="wide">

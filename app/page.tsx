@@ -3,10 +3,12 @@ import { Hero } from "@/components/sections/Hero";
 import { TrustedByStrip } from "@/components/sections/TrustedByStrip";
 import { PayoutMarquee } from "@/components/sections/PayoutMarquee";
 import { WhyChooseSoar } from "@/components/sections/WhyChooseSoar";
+import { ChallengeFinder } from "@/components/sections/ChallengeFinder";
 import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { MarketsSection } from "@/components/sections/MarketsSection";
 import { RulesAndPayoutPreviews } from "@/components/sections/RulesAndPayoutPreviews";
+import { PayoutCalculator } from "@/components/sections/PayoutCalculator";
 import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCta } from "@/components/sections/FinalCta";
@@ -24,6 +26,9 @@ export default function Home() {
         <WhyChooseSoar />
       </Reveal>
       <Reveal>
+        <ChallengeFinder />
+      </Reveal>
+      <Reveal>
         <Suspense fallback={null}>
           <ChallengeProvider>
             <FundingPathBuilder />
@@ -38,6 +43,9 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <RulesAndPayoutPreviews />
+      </Reveal>
+      <Reveal>
+        <PayoutCalculator variant="compact" />
       </Reveal>
       <Reveal>
         <ReviewsSection />
