@@ -1,21 +1,21 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import { Banknote, Infinity as InfinityIcon, Zap } from "lucide-react";
 
 const features = [
   {
-    icon: Banknote,
+    icon: "/feature-icons/profit-split.png",
     title: "90% Profit Split",
     body:
       "Earn the industry's highest profit share. Scale up to a 90% split as you achieve your growth targets.",
   },
   {
-    icon: Zap,
+    icon: "/feature-icons/fast-payouts.png",
     title: "Fast Payouts",
     body:
       "Requested. Approved. Sent. Receive your profits in under 24 hours via Crypto or Wire Transfer.",
   },
   {
-    icon: InfinityIcon,
+    icon: "/feature-icons/no-time-limits.png",
     title: "No Time Limits",
     body:
       "Trade at your own pace. There are no minimum or maximum trading days on our evaluations.",
@@ -62,34 +62,29 @@ export function WhyChooseSoar() {
         />
         <Container size="wide" className="relative">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {features.map((f) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={f.title}
-                  className="rounded-[20px] bg-white p-8 shadow-[0_18px_50px_-28px_rgba(11,18,32,0.25)]"
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-[20px] bg-white p-8 shadow-[0_18px_50px_-28px_rgba(11,18,32,0.25)]"
+              >
+                <Image
+                  src={f.icon}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="h-14 w-14"
+                />
+                <h3
+                  className="mt-6 text-xl font-bold"
+                  style={{ color: brandBlue }}
                 >
-                  <div
-                    className="flex h-11 w-11 items-center justify-center rounded-xl"
-                    style={{
-                      backgroundColor: "rgba(47,109,224,0.12)",
-                      color: brandBlue,
-                    }}
-                  >
-                    <Icon className="h-5 w-5" strokeWidth={2.25} />
-                  </div>
-                  <h3
-                    className="mt-8 text-xl font-bold"
-                    style={{ color: brandBlue }}
-                  >
-                    {f.title}
-                  </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-sectionLightInk/70">
-                    {f.body}
-                  </p>
-                </div>
-              );
-            })}
+                  {f.title}
+                </h3>
+                <p className="mt-3 text-[14px] leading-relaxed text-sectionLightInk/70">
+                  {f.body}
+                </p>
+              </div>
+            ))}
           </div>
         </Container>
       </div>
