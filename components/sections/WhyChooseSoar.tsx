@@ -1,72 +1,25 @@
 import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SoarMark } from "@/components/brand/LogoSoar";
-import {
-  Bot,
-  Coins,
-  Headphones,
-  Infinity as InfinityIcon,
-  LayoutGrid,
-  Layers,
-  Repeat,
-  ScrollText,
-  ShieldCheck,
-} from "lucide-react";
+import { Banknote, Infinity as InfinityIcon, Zap } from "lucide-react";
 
 const features = [
   {
-    icon: Coins,
-    title: "100% first payout",
+    icon: Banknote,
+    title: "90% Profit Split",
     body:
-      "Keep 100% of your first payout on standard challenges. Ongoing payouts are 80% bi-weekly.",
+      "Earn the industry's highest profit share. Scale up to a 90% split as you achieve your growth targets.",
   },
   {
-    icon: Repeat,
-    title: "80% ongoing, bi-weekly",
+    icon: Zap,
+    title: "Fast Payouts",
     body:
-      "Eligible payouts are available bi-weekly after the first 30 calendar days.",
+      "Requested. Approved. Sent. Receive your profits in under 24 hours via Crypto or Wire Transfer.",
   },
   {
     icon: InfinityIcon,
-    title: "No time limits",
+    title: "No Time Limits",
     body:
-      "Trade at your own pace. There are no minimum or maximum trading days.",
-  },
-  {
-    icon: ScrollText,
-    title: "Clear, published rules",
-    body:
-      "Drawdown limits, profit targets and consistency rules — all in the Terms of Service.",
-  },
-  {
-    icon: Layers,
-    title: "5 challenge types",
-    body:
-      "1 Step, 2 Step, BNPL 1 Step, BNPL 2 Step and Rapid Runway. Pick what suits your style.",
-  },
-  {
-    icon: LayoutGrid,
-    title: "100+ markets",
-    body:
-      "Forex majors and minors, metals, indices, crypto and oil — all in one account.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Simulated funded accounts",
-    body:
-      "Every funded account is simulated. Clear legal positioning on every page.",
-  },
-  {
-    icon: Bot,
-    title: "EAs allowed, with approval",
-    body:
-      "Expert Advisors may be used where reviewed and compliant with the rules.",
-  },
-  {
-    icon: Headphones,
-    title: "Fast support",
-    body:
-      "Email support@soar-funding.com — we respond quickly to any account question.",
+      "Trade at your own pace. There are no minimum or maximum trading days on our evaluations.",
   },
 ];
 
@@ -88,34 +41,35 @@ export function WhyChooseSoar() {
         <SoarMark size={280} />
       </div>
       <Container size="wide" className="relative">
-        <div className="flex flex-col items-start gap-10 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            theme="light"
-            align="left"
-            eyebrow="Why Soar Funding"
-            title="Built for serious traders."
-            emphasize="serious traders."
-          />
-          <p className="max-w-md text-sm leading-relaxed text-sectionLightInk/60">
-            Simulated trading challenges, straightforward rules, and a simple
-            payout structure. No hidden gates and no inflated claims.
+        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-deep">
+              Precision Trading
+            </div>
+            <h2 className="mt-4 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-accent-deep sm:text-5xl md:text-6xl">
+              The Soar Advantage.
+            </h2>
+          </div>
+          <p className="max-w-md text-[15px] leading-relaxed text-sectionLightInk/70">
+            We've eliminated the friction found in traditional prop firms. No
+            arbitrary rules. No slow payouts. Just raw performance tools.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
           {features.map((f) => {
             const Icon = f.icon;
             return (
               <div
                 key={f.title}
-                className="group rounded-[18px] border border-sectionLightInk/8 bg-white p-7 shadow-[0_10px_40px_-24px_rgba(11,18,32,0.3)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-22px_rgba(11,18,32,0.4)]"
+                className="rounded-[20px] border border-sectionLightInk/5 bg-white p-8 shadow-[0_10px_40px_-24px_rgba(11,18,32,0.25)]"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent-deep">
-                  <Icon className="h-5 w-5" strokeWidth={2} />
+                  <Icon className="h-5 w-5" strokeWidth={2.25} />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-accent-deep">
+                <h3 className="mt-8 text-xl font-bold text-accent-deep">
                   {f.title}
                 </h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-sectionLightInk/70">
+                <p className="mt-3 text-[14px] leading-relaxed text-sectionLightInk/70">
                   {f.body}
                 </p>
               </div>
