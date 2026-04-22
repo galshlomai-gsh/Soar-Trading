@@ -1,5 +1,4 @@
 import { Container } from "@/components/ui/Container";
-import { SoarMark } from "@/components/brand/LogoSoar";
 import { Banknote, Infinity as InfinityIcon, Zap } from "lucide-react";
 
 const features = [
@@ -23,30 +22,24 @@ const features = [
   },
 ];
 
+const brandBlue = "#2F6DE0";
+
 export function WhyChooseSoar() {
   return (
-    <section className="relative overflow-hidden bg-sectionLight py-24">
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "radial-gradient(700px 400px at 10% 10%, rgba(91,142,240,0.12), transparent 60%), radial-gradient(600px 400px at 90% 90%, rgba(91,142,240,0.08), transparent 60%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute right-[-40px] top-[-40px] opacity-[0.06]"
-      >
-        <SoarMark size={280} />
-      </div>
-      <Container size="wide" className="relative">
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+    <section className="bg-white">
+      <Container size="wide">
+        <div className="flex flex-col gap-8 pt-24 pb-12 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-deep">
+            <div
+              className="text-[11px] font-semibold uppercase tracking-[0.22em]"
+              style={{ color: brandBlue }}
+            >
               Precision Trading
             </div>
-            <h2 className="mt-4 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-accent-deep sm:text-5xl md:text-6xl">
+            <h2
+              className="mt-4 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl"
+              style={{ color: brandBlue }}
+            >
               The Soar Advantage.
             </h2>
           </div>
@@ -55,28 +48,51 @@ export function WhyChooseSoar() {
             arbitrary rules. No slow payouts. Just raw performance tools.
           </p>
         </div>
-        <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {features.map((f) => {
-            const Icon = f.icon;
-            return (
-              <div
-                key={f.title}
-                className="rounded-[20px] border border-sectionLightInk/5 bg-white p-8 shadow-[0_10px_40px_-24px_rgba(11,18,32,0.25)]"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/15 text-accent-deep">
-                  <Icon className="h-5 w-5" strokeWidth={2.25} />
-                </div>
-                <h3 className="mt-8 text-xl font-bold text-accent-deep">
-                  {f.title}
-                </h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-sectionLightInk/70">
-                  {f.body}
-                </p>
-              </div>
-            );
-          })}
-        </div>
       </Container>
+      <div className="relative overflow-hidden bg-[#D9E6FA] pt-12 pb-24">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-60"
+          style={{
+            backgroundImage: "url(/brand/mask-group.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "left bottom",
+            backgroundSize: "min(820px, 70%)",
+          }}
+        />
+        <Container size="wide" className="relative">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {features.map((f) => {
+              const Icon = f.icon;
+              return (
+                <div
+                  key={f.title}
+                  className="rounded-[20px] bg-white p-8 shadow-[0_18px_50px_-28px_rgba(11,18,32,0.25)]"
+                >
+                  <div
+                    className="flex h-11 w-11 items-center justify-center rounded-xl"
+                    style={{
+                      backgroundColor: "rgba(47,109,224,0.12)",
+                      color: brandBlue,
+                    }}
+                  >
+                    <Icon className="h-5 w-5" strokeWidth={2.25} />
+                  </div>
+                  <h3
+                    className="mt-8 text-xl font-bold"
+                    style={{ color: brandBlue }}
+                  >
+                    {f.title}
+                  </h3>
+                  <p className="mt-3 text-[14px] leading-relaxed text-sectionLightInk/70">
+                    {f.body}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </Container>
+      </div>
     </section>
   );
 }
