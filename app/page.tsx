@@ -6,6 +6,7 @@ import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { MarketsSection } from "@/components/sections/MarketsSection";
 import { RulesAndPayoutPreviews } from "@/components/sections/RulesAndPayoutPreviews";
+import { Testimonials } from "@/components/sections/Testimonials";
 import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCta } from "@/components/sections/FinalCta";
@@ -36,6 +37,9 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <RulesAndPayoutPreviews />
+      </Reveal>
+      <Reveal>
+        <Testimonials />
       </Reveal>
       <Reveal>
         <ReviewsSection />
