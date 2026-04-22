@@ -1,24 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { faqItems } from "@/components/data/faq";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 
-const INITIAL_VISIBLE = 6;
-const STEP = 6;
+const items = [
+  {
+    q: "What is the drawdown limit?",
+    a: "Each challenge publishes its own daily and overall drawdown — typically 4% daily and 8% maximum on the 2 Step, calculated from end-of-day equity or balance, whichever is higher. Specific limits for every challenge are listed on the Rules page.",
+  },
+  {
+    q: "Can I trade news events?",
+    a: "News trading is only allowed where your challenge or add-on permits it. Trading within 5 minutes before or after a high-impact release may lead to profit deductions or a breach, depending on your account rules.",
+  },
+  {
+    q: "How often can I request a payout?",
+    a: "Standard funded accounts unlock the first payout after 30 calendar days, then move to bi-weekly payouts at an 80% profit split. Minimum payout request threshold is 1% profit, subject to KYC and rule checks.",
+  },
+];
 
 export function FaqSection() {
-  const [open, setOpen] = useState<number | null>(0);
-  const [visible, setVisible] = useState(INITIAL_VISIBLE);
-  const items = faqItems.slice(0, visible);
-  const remaining = faqItems.length - visible;
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="py-24">
+    <section className="pt-24">
       <Container size="narrow">
         <SectionHeading title="Frequently Asked Questions" />
         <ul className="mt-12 flex flex-col gap-3">
@@ -64,24 +71,6 @@ export function FaqSection() {
             );
           })}
         </ul>
-
-        <div className="mt-10 flex flex-col items-center gap-3">
-          {remaining > 0 && (
-            <button
-              type="button"
-              onClick={() => setVisible((v) => v + STEP)}
-              className="rounded-full border border-white/10 bg-surface/60 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink hover:border-accent/40"
-            >
-              Show {Math.min(STEP, remaining)} more questions
-            </button>
-          )}
-          <Link
-            href="/faq"
-            className="text-xs font-semibold uppercase tracking-[0.2em] text-accent hover:text-accent-soft"
-          >
-            View the full FAQ →
-          </Link>
-        </div>
       </Container>
     </section>
   );
