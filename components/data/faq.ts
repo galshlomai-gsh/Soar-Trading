@@ -44,7 +44,6 @@ export const faqCategories: {
 const SAFE = "Please contact support before assuming this is available.";
 
 export const faqItems: FaqItem[] = [
-  // ---- General ----
   {
     category: "general",
     q: "Who are you?",
@@ -66,39 +65,13 @@ export const faqItems: FaqItem[] = [
     a: `Platform options are published on the challenge purchase flow. ${SAFE}`,
   },
   {
-    category: "general",
-    q: "How do I contact support?",
-    a: "Email support@soar-funding.com for any account, billing, or rules question.",
-  },
-  {
-    category: "general",
-    q: "Where can I manage my account?",
-    a: `A client portal is planned for account management. ${SAFE}`,
-  },
-  {
-    category: "general",
-    q: "What's the leverage?",
-    a: `Leverage varies by asset class and challenge type. ${SAFE}`,
-  },
-  {
-    category: "general",
-    q: "What's the commission?",
-    a: `Commission schedules depend on platform and instrument. ${SAFE}`,
-  },
-  {
-    category: "general",
-    q: "Do you have a trader community?",
-    a: "Soar Funding runs a trader community on Discord — see the Join Our Community link in the footer.",
-  },
-  // ---- Challenges ----
-  {
     category: "challenges",
-    q: "What are the 2 Step rules?",
+    q: "2 Step Rules",
     a: "Phase 1 profit target is 8% and Phase 2 target is 6%. Maximum loss is 8% fixed. Daily loss limit is 4% fixed, based on EOD equity or balance (whichever is higher). On the funded stage, the consistency rule is max 40% of total profits in one trading day.",
   },
   {
     category: "challenges",
-    q: "What are the 1 Step rules?",
+    q: "1-Step Rules",
     a: "Profit target is 10%. Maximum loss is 8% trailing. Daily loss limit is 3% fixed, based on EOD equity or balance (whichever is higher). On the funded stage, the consistency rule is max 35% of total profits in one trading day.",
   },
   {
@@ -122,6 +95,11 @@ export const faqItems: FaqItem[] = [
     a: "Third-party purchases and third-party payouts are prohibited. The purchaser must be the trader operating the account.",
   },
   {
+    category: "payouts",
+    q: "What are the payout terms?",
+    a: "For standard funded accounts, the first payout is available after 30 calendar days, subject to KYC, rule checks, and payout approval. First payout profit split is 100%; ongoing payouts are 80% bi-weekly. Minimum payout request threshold is 1% profit.",
+  },
+  {
     category: "challenges",
     q: "Are funded accounts real or simulated?",
     a: "All funded accounts are simulated demo accounts. All balances, profits, losses, and performance metrics are virtual. See the Risk Disclosure for full details.",
@@ -131,15 +109,44 @@ export const faqItems: FaqItem[] = [
     q: "Can I merge funded accounts?",
     a: `Rules on merging funded accounts vary by challenge type. ${SAFE}`,
   },
-  // ---- BNPL ----
+  {
+    category: "rules",
+    q: "Trading Rules",
+    a: "Minimum 2-minute hold on every trade. No copy trading or hedging across accounts. No HFT, toxic trading, or latency arbitrage. News trading only with the correct add-on. Weekend holding is permitted. At least one trade every 30 days. See the full rules page for details.",
+  },
+  {
+    category: "general",
+    q: "How do I contact support?",
+    a: "Email support@soar-funding.com for any account, billing, or rules question.",
+  },
+  {
+    category: "general",
+    q: "Where can I manage my account?",
+    a: `A client portal is planned for account management. ${SAFE}`,
+  },
+  {
+    category: "general",
+    q: "Whats The Leverage",
+    a: `Leverage varies by asset class and challenge type. ${SAFE}`,
+  },
+  {
+    category: "general",
+    q: "Whats the Commission",
+    a: `Commission schedules depend on platform and instrument. ${SAFE}`,
+  },
+  {
+    category: "general",
+    q: "Do you have a trader community?",
+    a: "Soar Funding runs a trader community on Discord — see the Join Our Community link in the footer.",
+  },
   {
     category: "bnpl",
-    q: "Buy Now Pay Later — targets and limits",
+    q: "BUY NOW PAY LATER Targets and Limits",
     a: "BNPL 2 Step: Phase 1 target 8%, Phase 2 target 5%, max loss 10% trailing, daily loss 5% fixed. BNPL 1 Step: profit target 6%, max loss 10% trailing, daily loss 5% fixed. Activation fee must be paid within 15 days of passing.",
   },
   {
     category: "bnpl",
-    q: "Buy Now Pay Later — funded rules",
+    q: "BUY NOW PAY LATER Rules",
     a: "BNPL 2 Step funded: 8% trailing max loss, 3% fixed daily loss, 80% profit split bi-weekly, 25% consistency rule. BNPL 1 Step funded: 6% trailing max loss, 3% fixed daily loss, 80% profit split bi-weekly, 15% consistency rule. Inactivity rule: at least one trade every 30 days.",
   },
   {
@@ -147,45 +154,16 @@ export const faqItems: FaqItem[] = [
     q: "Only $20 upfront?!",
     a: `BNPL positioning on the live Soar Funding site refers to reduced upfront cost. The activation fee is paid after passing. ${SAFE}`,
   },
-  // ---- Rapid Runway ----
   {
     category: "rapid-runway",
-    q: "Rapid Runway rules",
+    q: "Rapid Runway Rules",
     a: "Phase 1 is skipped. Phase 2 target is 5%. Maximum loss is 8% trailing. Challenge daily loss is 5% and funded daily loss is 3% fixed. Profit split is 80% bi-weekly. Consistency rule is max 20% of total profits in one trading day. Activation fee must be paid within 15 days of passing. Inactivity rule: at least one trade every 30 days.",
   },
   {
     category: "rapid-runway",
-    q: "Rapid Runway — targets and limits",
+    q: "Targets and Limits",
     a: "Phase 2 target: 5%. Max loss: 8% trailing. Challenge daily loss: 5%. Funded daily loss: 3% fixed.",
   },
-  // ---- Rules ----
-  {
-    category: "rules",
-    q: "Trading rules",
-    a: "Minimum 2-minute hold on every trade. No copy trading or hedging across accounts. No HFT, toxic trading, or latency arbitrage. News trading only with the correct add-on. Weekend holding is permitted. At least one trade every 30 days. See the full rules page for details.",
-  },
-  {
-    category: "rules",
-    q: "Can I trade news events?",
-    a: "News trading is only allowed where your challenge or add-on permits it. Trading within 5 minutes before or after high-impact news may lead to profit deductions or a breach, depending on the account rules.",
-  },
-  {
-    category: "rules",
-    q: "Are Expert Advisors allowed?",
-    a: "Expert Advisors may be used where reviewed, approved, and compliant with Soar Funding's trading rules. Strategies that exploit demo conditions, latency, pricing, execution, or platform infrastructure are not allowed.",
-  },
-  {
-    category: "rules",
-    q: "Is copy trading allowed?",
-    a: "Copy trading or hedging across accounts is not allowed. Each trader must trade independently and comply with the platform's risk rules.",
-  },
-  // ---- Payouts ----
-  {
-    category: "payouts",
-    q: "What are the payout terms?",
-    a: "For standard funded accounts, the first payout is available after 30 calendar days, subject to KYC, rule checks, and payout approval. First payout profit split is 100%; ongoing payouts are 80% bi-weekly. Minimum payout request threshold is 1% profit.",
-  },
-  // ---- Compliance ----
   {
     category: "compliance",
     q: "IP Address & Location Consistency Policy",

@@ -5,9 +5,7 @@ import { WhyChooseSoar } from "@/components/sections/WhyChooseSoar";
 import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { MarketsSection } from "@/components/sections/MarketsSection";
-import { RulesAndPayoutPreviews } from "@/components/sections/RulesAndPayoutPreviews";
 import { Testimonials } from "@/components/sections/Testimonials";
-import { ReviewsSection } from "@/components/sections/ReviewsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { ChallengeProvider } from "@/components/configurator/ChallengeProvider";
@@ -36,13 +34,7 @@ export default function Home() {
         <MarketsSection />
       </Reveal>
       <Reveal>
-        <RulesAndPayoutPreviews />
-      </Reveal>
-      <Reveal>
         <Testimonials />
-      </Reveal>
-      <Reveal>
-        <ReviewsSection />
       </Reveal>
       <Reveal>
         <FaqSection />
