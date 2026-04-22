@@ -4,7 +4,6 @@ import { PayoutMarquee } from "@/components/sections/PayoutMarquee";
 import { WhyChooseSoar } from "@/components/sections/WhyChooseSoar";
 import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { MarketsSection } from "@/components/sections/MarketsSection";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { FinalCta } from "@/components/sections/FinalCta";
@@ -29,9 +28,6 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <ProcessSteps />
-      </Reveal>
-      <Reveal>
-        <MarketsSection />
       </Reveal>
       <Reveal>
         <Testimonials />
