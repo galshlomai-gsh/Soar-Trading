@@ -26,7 +26,10 @@ export const riskWarningExtended =
   "The information on this site is not directed at residents in any country or jurisdiction where such distribution or use would be contrary to local laws or regulations. Soar Funding companies do not act as a broker and do not accept any deposits. The offered technical solution for the Soar Funding platforms and data feed is powered by liquidity providers.";
 
 export const brandFooterCopy =
-  "Soar Funding provides simulated trading challenges and educational tools for traders. Trade with clear rules, defined targets, and a structured path to a simulated funded account.";
+  "Empowering sovereign traders with institutional capital and elite technology. Trade with confidence, scale with precision.";
+
+export const brandFooterTagline =
+  "Precision trading for sovereign professionals.";
 
 export const simulatedDisclaimer =
   "All accounts are simulated demo accounts. All balances, profits, losses, and performance metrics are virtual.";
