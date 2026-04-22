@@ -37,7 +37,7 @@ export function WhyChooseSoar() {
               Precision Trading
             </div>
             <h2
-              className="mt-4 text-balance text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl md:text-6xl"
+              className="mt-4 text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-[-0.024em] sm:text-5xl md:text-6xl"
               style={{ color: brandBlue }}
             >
               The Soar Advantage.

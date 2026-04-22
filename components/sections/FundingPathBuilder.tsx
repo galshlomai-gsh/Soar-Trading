@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { useChallenge } from "@/components/configurator/ChallengeProvider";
@@ -7,6 +8,7 @@ import {
   ALL_SIZES,
   type AccountSize,
   type ChallengeType,
+  getChallenge,
   getPrice,
   sizeLabel,
   sizeShortLabel,
@@ -32,31 +34,41 @@ const variants: { id: Variant; label: string; sub: string }[] = [
   { id: "classic", label: "Classic", sub: "Standard account." },
 ];
 
-function stepOf(t: ChallengeType): Step {
-  if (t === "rapid-runway") return "instant";
-  if (t === "1-step" || t === "bnpl-1-step") return "1-step";
-  return "2-step";
-}
+const stepLabel: Record<Step, string> = {
+  instant: "Instant",
+  "1-step": "1 Step",
+  "2-step": "2 Step",
+};
 
-function variantOf(t: ChallengeType): Variant {
-  if (t === "rapid-runway") return "rapid";
-  if (t === "bnpl-1-step" || t === "bnpl-2-step") return "bnpl";
-  return "classic";
-}
+const variantLabel: Record<Variant, string> = {
+  bnpl: "BNPL",
+  rapid: "Rapid",
+  classic: "Classic",
+};
 
-function toType(step: Step, variant: Variant): ChallengeType {
-  if (variant === "rapid") return "rapid-runway";
-  if (step === "instant") return "rapid-runway";
-  if (step === "1-step") return variant === "bnpl" ? "bnpl-1-step" : "1-step";
-  return variant === "bnpl" ? "bnpl-2-step" : "2-step";
+/**
+ * Best-effort mapping from the 2-axis UI selection to an existing
+ * ChallengeSpec. Returns undefined when no real spec covers the combo —
+ * the UI still accepts every click; we just show TBC pricing.
+ */
+function resolveType(step: Step, variant: Variant): ChallengeType | undefined {
+  if (step === "instant" && variant === "rapid") return "rapid-runway";
+  if (step === "1-step" && variant === "classic") return "1-step";
+  if (step === "2-step" && variant === "classic") return "2-step";
+  if (step === "1-step" && variant === "bnpl") return "bnpl-1-step";
+  if (step === "2-step" && variant === "bnpl") return "bnpl-2-step";
+  return undefined;
 }
 
 export function FundingPathBuilder() {
+  const [step, setStep] = useState<Step>("1-step");
+  const [variant, setVariant] = useState<Variant>("classic");
+
   return (
     <section className="py-24" id="challenge-selector">
       <Container size="wide">
         <div className="text-center">
-          <h2 className="text-balance text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl">
+          <h2 className="text-balance font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl">
             Choose Your Funding Path
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-muted sm:text-base">
@@ -64,9 +76,14 @@ export function FundingPathBuilder() {
           </p>
         </div>
         <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
-          <SelectModelColumn />
+          <SelectModelColumn
+            step={step}
+            variant={variant}
+            onStep={setStep}
+            onVariant={setVariant}
+          />
           <AccountSizeColumn />
-          <GetFundedColumn />
+          <GetFundedColumn step={step} variant={variant} />
         </div>
       </Container>
     </section>
@@ -97,21 +114,27 @@ function Column({
   );
 }
 
-function SelectModelColumn() {
-  const { type, setType } = useChallenge();
-  const currentStep = stepOf(type);
-  const currentVariant = variantOf(type);
-
+function SelectModelColumn({
+  step,
+  variant,
+  onStep,
+  onVariant,
+}: {
+  step: Step;
+  variant: Variant;
+  onStep: (s: Step) => void;
+  onVariant: (v: Variant) => void;
+}) {
   return (
     <Column step={1} label="Select Model">
       <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-base/60 p-1">
         {steps.map((s) => {
-          const active = currentStep === s.id;
+          const active = step === s.id;
           return (
             <button
               key={s.id}
               type="button"
-              onClick={() => setType(toType(s.id, currentVariant))}
+              onClick={() => onStep(s.id)}
               aria-pressed={active}
               className={cn(
                 "rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors",
@@ -127,12 +150,12 @@ function SelectModelColumn() {
       </div>
       <div className="mt-5 flex flex-col gap-3">
         {variants.map((v) => {
-          const active = currentVariant === v.id;
+          const active = variant === v.id;
           return (
             <button
               key={v.id}
               type="button"
-              onClick={() => setType(toType(currentStep, v.id))}
+              onClick={() => onVariant(v.id)}
               aria-pressed={active}
               className={cn(
                 "rounded-[14px] border px-4 py-4 text-left transition-all",
@@ -152,13 +175,12 @@ function SelectModelColumn() {
 }
 
 function AccountSizeColumn() {
-  const { size, setSize, spec } = useChallenge();
+  const { size, setSize } = useChallenge();
   return (
     <Column step={2} label="Account Size">
       <div className="grid grid-cols-2 gap-3">
         {ALL_SIZES.map((s, i) => {
           const active = size === s;
-          const price = getPrice(spec, s);
           const isLast = i === ALL_SIZES.length - 1;
           const isOdd = ALL_SIZES.length % 2 === 1;
           return (
@@ -167,7 +189,6 @@ function AccountSizeColumn() {
               type="button"
               onClick={() => setSize(s as AccountSize)}
               aria-pressed={active}
-              title={price !== undefined ? `$${price}` : "Price TBC"}
               className={cn(
                 "flex flex-col items-center justify-center rounded-[14px] border py-5 transition-all",
                 active
@@ -187,20 +208,31 @@ function AccountSizeColumn() {
   );
 }
 
-function GetFundedColumn() {
-  const { spec, size, price } = useChallenge();
-  const modelLabel = shortModelLabel(spec.type);
+function GetFundedColumn({
+  step,
+  variant,
+}: {
+  step: Step;
+  variant: Variant;
+}) {
+  const { size } = useChallenge();
+  const resolvedType = resolveType(step, variant);
+  const spec = resolvedType ? getChallenge(resolvedType) : undefined;
+  const price = spec ? getPrice(spec, size) : undefined;
   return (
     <Column step={3} label="Get Funded">
       <div className="flex flex-col divide-y divide-white/5">
-        <Row label="Model" value={modelLabel} />
+        <Row
+          label="Model"
+          value={`${stepLabel[step]} · ${variantLabel[variant]}`}
+        />
         <Row label="Account Size" value={sizeLabel[size]} />
         <Row label="Platform" value="DX Trade" />
         <Row
           label="Challenge Fee"
           value={
             price !== undefined ? (
-              <span className="text-xl font-extrabold text-accent tabular-nums">
+              <span className="font-display text-xl font-extrabold text-accent tabular-nums">
                 ${price}
               </span>
             ) : (
@@ -233,19 +265,4 @@ function Row({
       </span>
     </div>
   );
-}
-
-function shortModelLabel(t: ChallengeType): string {
-  switch (t) {
-    case "1-step":
-      return "1 Step · Classic";
-    case "2-step":
-      return "2 Step · Classic";
-    case "bnpl-1-step":
-      return "1 Step · BNPL";
-    case "bnpl-2-step":
-      return "2 Step · BNPL";
-    case "rapid-runway":
-      return "Instant · Rapid";
-  }
 }
