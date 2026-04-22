@@ -48,7 +48,7 @@ export function SiteHeader() {
               width={514}
               height={172}
               priority
-              className="h-9 w-auto md:h-10"
+              className="h-10 w-auto md:h-12"
             />
           </Link>
           <nav className="hidden items-center justify-center gap-8 md:flex">
