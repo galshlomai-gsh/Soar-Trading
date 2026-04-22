@@ -16,40 +16,38 @@ const avatars = [
 export function Hero() {
   const rating = trustpilotScore?.toFixed(1) ?? "4.8";
   return (
-    <section className="px-3 pt-3 sm:px-4 sm:pt-4 md:px-6 md:pt-6">
-      <Container size="wide" className="!px-0">
-        <div className="relative -mt-16 overflow-hidden rounded-[28px] border border-white/10 bg-elevated shadow-soft">
-          <HeroMonitorsBackdrop />
-          <div className="relative px-6 pt-28 pb-10 sm:px-10 md:px-14 md:pt-36 md:pb-16">
-            <Badge tone="accent" className="gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              PAY AFTER YOU PASS
-            </Badge>
-            <h1 className="mt-6 max-w-3xl text-[44px] font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-[80px]">
-              Scale Your Trading
-              <br />
-              to <span className="text-gradient">$200,000</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-muted sm:text-[17px]">
-              Access institutional-grade capital and trade with industry-leading
-              conditions. Keep up to{" "}
-              <span className="font-semibold text-accent-soft">
-                90% of your profits.
-              </span>
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button href="/challenges" size="lg">
-                Select Your Challenge
-              </Button>
-              <Button href="/rules" size="lg" variant="outline">
-                View Rules
-              </Button>
-              <SocialProofCluster rating={rating} />
-            </div>
+    <section className="relative -mt-16 overflow-hidden bg-elevated">
+      <HeroMonitorsBackdrop />
+      <Container size="wide" className="relative">
+        <div className="pt-28 pb-12 md:pt-36 md:pb-20">
+          <Badge tone="accent" className="gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            PAY AFTER YOU PASS
+          </Badge>
+          <h1 className="mt-6 text-[44px] font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-[88px] lg:text-[96px]">
+            Scale Your Trading
+            <br />
+            to <span className="text-gradient">$200,000</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-muted sm:text-[17px]">
+            Access institutional-grade capital and trade with industry-leading
+            conditions. Keep up to{" "}
+            <span className="font-semibold text-accent-soft">
+              90% of your profits.
+            </span>
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Button href="/challenges" size="lg">
+              Select Your Challenge
+            </Button>
+            <Button href="/rules" size="lg" variant="outline">
+              View Rules
+            </Button>
+            <SocialProofCluster rating={rating} />
           </div>
-          <PartnersStrip />
         </div>
       </Container>
+      <PartnersStrip />
     </section>
   );
 }
@@ -89,22 +87,27 @@ function SocialProofCluster({ rating }: { rating: string }) {
 function PartnersStrip() {
   return (
     <div className="relative border-t border-white/10 bg-black/40 backdrop-blur-sm">
-      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4 sm:px-10 md:px-14">
-        <div className="flex flex-wrap items-center gap-x-10 gap-y-2">
-          {partners.map((p) => (
-            <span
-              key={p}
-              className="text-[13px] font-semibold tracking-wide text-ink sm:text-[15px]"
-            >
-              {p}
+      <Container size="wide">
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-6 sm:py-7 md:py-8">
+          <div className="flex flex-wrap items-center gap-x-12 gap-y-3 sm:gap-x-16 md:gap-x-20">
+            {partners.map((p) => (
+              <span
+                key={p}
+                className="text-base font-medium tracking-wide text-ink sm:text-lg"
+              >
+                {p}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-center gap-5 sm:gap-6">
+            <span aria-hidden className="hidden h-6 w-px bg-white/15 sm:block" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+              <CheckCircle2 className="h-3.5 w-3.5 text-ok" strokeWidth={2.5} />
+              Verified Payouts Active
             </span>
-          ))}
+          </div>
         </div>
-        <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
-          <CheckCircle2 className="h-4 w-4 text-ok" strokeWidth={2.5} />
-          Verified Payouts Active
-        </span>
-      </div>
+      </Container>
     </div>
   );
 }
