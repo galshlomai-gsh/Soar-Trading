@@ -1,7 +1,7 @@
 export const primaryNav = [
   { label: "Challenges", href: "/challenges" },
-  { label: "Rules", href: "/rules" },
   { label: "Payouts", href: "/payouts" },
+  { label: "Rules", href: "/rules" },
   { label: "Affiliates", href: "/affiliates" },
   { label: "FAQ", href: "/faq" },
 ];

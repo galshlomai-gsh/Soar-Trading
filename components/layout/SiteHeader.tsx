@@ -1,16 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { LogoSoar } from "@/components/brand/LogoSoar";
 import { Button } from "@/components/ui/Button";
 import { primaryNav } from "@/components/data/nav";
 import { cn } from "@/lib/cn";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (open) {
@@ -23,13 +31,27 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-base/80 backdrop-blur-xl">
+    <header
+      className={cn(
+        "sticky top-0 z-40 transition-colors duration-200",
+        scrolled || open
+          ? "border-b border-white/5 bg-base/80 backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent",
+      )}
+    >
       <Container size="wide">
-        <div className="flex h-16 items-center justify-between gap-6">
-          <Link href="/" aria-label="Soar Funding home">
-            <LogoSoar />
+        <div className="grid h-16 grid-cols-[auto_1fr_auto] items-center gap-6">
+          <Link href="/" aria-label="Soar Funding home" className="flex items-center">
+            <Image
+              src="/brand/soar-logo.png"
+              alt="Soar Funding"
+              width={514}
+              height={172}
+              priority
+              className="h-9 w-auto md:h-10"
+            />
           </Link>
-          <nav className="hidden items-center gap-7 md:flex">
+          <nav className="hidden items-center justify-center gap-8 md:flex">
             {primaryNav.map((l) => (
               <Link
                 key={l.href}
@@ -40,7 +62,7 @@ export function SiteHeader() {
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link
               href="/client-portal"
               className="hidden text-[13px] font-medium text-ink-muted transition-colors hover:text-ink sm:inline"
@@ -107,7 +129,7 @@ export function SiteHeader() {
             fullWidth
             className="mt-6"
           >
-            Choose Your Challenge
+            Start Trading
           </Button>
         </Container>
       </div>

@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Hero } from "@/components/sections/Hero";
-import { TrustedByStrip } from "@/components/sections/TrustedByStrip";
 import { PayoutMarquee } from "@/components/sections/PayoutMarquee";
 import { WhyChooseSoar } from "@/components/sections/WhyChooseSoar";
 import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
@@ -18,7 +17,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <TrustedByStrip />
       <PayoutMarquee />
       <Reveal>
         <WhyChooseSoar />
