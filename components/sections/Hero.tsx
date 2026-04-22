@@ -24,7 +24,7 @@ export function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             PAY AFTER YOU PASS
           </Badge>
-          <h1 className="mt-6 text-[44px] font-extrabold leading-[1.02] tracking-tight text-ink sm:text-6xl md:text-[88px] lg:text-[96px]">
+          <h1 className="mt-6 font-display text-[44px] font-extrabold leading-[1.05] tracking-[-0.024em] text-ink sm:text-6xl md:text-[88px] lg:text-[96px]">
             Scale Your Trading
             <br />
             to <span className="text-gradient">$200,000</span>
