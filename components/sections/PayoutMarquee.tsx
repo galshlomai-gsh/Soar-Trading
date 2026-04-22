@@ -54,7 +54,7 @@ export function PayoutMarquee() {
 
 function PayoutCard({ name, country, amount }: PayoutExample) {
   return (
-    <article className="relative flex w-[420px] shrink-0 items-center gap-4 overflow-hidden rounded-2xl border border-white/10 bg-surface/60 p-5 sm:w-[460px]">
+    <article className="relative flex w-[420px] shrink-0 items-center gap-4 overflow-hidden rounded-2xl border border-white/10 bg-[#141C2E] p-5 shadow-soft sm:w-[460px]">
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="inline-flex items-center gap-1.5 text-[12px] font-medium text-ink-muted">
           <Globe className="h-3.5 w-3.5" strokeWidth={2} />
