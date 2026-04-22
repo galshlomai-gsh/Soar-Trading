@@ -22,7 +22,7 @@ const features = [
   },
 ];
 
-const brandBlue = "#2F6DE0";
+const brandBlue = "#3393F2";
 
 export function WhyChooseSoar() {
   return (
@@ -49,15 +49,20 @@ export function WhyChooseSoar() {
           </p>
         </div>
       </Container>
-      <div className="relative overflow-hidden bg-[#D9E6FA] pt-12 pb-24">
+      <div className="relative overflow-hidden bg-[#D9E9FF] pt-12 pb-24">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-60"
           style={{
-            backgroundImage: "url(/brand/mask-group.png)",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "left bottom",
-            backgroundSize: "min(820px, 70%)",
+            backgroundColor: "#027FDC",
+            WebkitMaskImage: "url(/brand/mask-group.png)",
+            maskImage: "url(/brand/mask-group.png)",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "left bottom",
+            maskPosition: "left bottom",
+            WebkitMaskSize: "min(820px, 70%)",
+            maskSize: "min(820px, 70%)",
           }}
         />
         <Container size="wide" className="relative">
