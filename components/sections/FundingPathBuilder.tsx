@@ -71,7 +71,7 @@ export function FundingPathBuilder() {
           <h2 className="text-balance font-display text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-5xl">
             Choose Your Funding Path
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-muted sm:text-base">
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ink-muted sm:text-[1rem]">
             Select the evaluation model that fits your trading strategy.
           </p>
         </div>
@@ -100,7 +100,7 @@ function Column({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[20px] border border-white/10 bg-surface/60 p-6 md:p-7">
+    <div className="rounded-[20px] border border-white/10 bg-raised p-6 md:p-7">
       <div className="flex items-center gap-3">
         <span className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-accent text-xs font-extrabold text-[#0B1220]">
           {step}

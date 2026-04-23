@@ -18,7 +18,7 @@ export function FinalCta() {
             <h3 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl md:text-[44px]">
               Ready to Scale Your Career?
             </h3>
-            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink-muted sm:text-base">
+            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ink-muted sm:text-[1rem]">
               Join thousands of professional traders and get funded with up to
               $500,000 in institutional capital.
             </p>

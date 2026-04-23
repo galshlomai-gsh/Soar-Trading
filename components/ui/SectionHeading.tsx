@@ -60,7 +60,7 @@ export function SectionHeading({
       {subtitle && (
         <p
           className={cn(
-            "mx-auto mt-5 max-w-2xl text-pretty text-sm leading-relaxed sm:text-base",
+            "mx-auto mt-5 max-w-2xl text-pretty text-sm leading-relaxed sm:text-[1rem]",
             theme === "dark" ? "text-ink-muted" : "text-sectionLightInk/60",
             align === "left" && "mx-0",
           )}
