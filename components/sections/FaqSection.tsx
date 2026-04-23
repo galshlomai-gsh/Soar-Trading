@@ -3,23 +3,9 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { faqItems } from "@/components/data/faq";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
-
-const items = [
-  {
-    q: "What is the drawdown limit?",
-    a: "Each challenge publishes its own daily and overall drawdown — typically 4% daily and 8% maximum on the 2 Step, calculated from end-of-day equity or balance, whichever is higher. Specific limits for every challenge are listed on the Rules page.",
-  },
-  {
-    q: "Can I trade news events?",
-    a: "News trading is only allowed where your challenge or add-on permits it. Trading within 5 minutes before or after a high-impact release may lead to profit deductions or a breach, depending on your account rules.",
-  },
-  {
-    q: "How often can I request a payout?",
-    a: "Standard funded accounts unlock the first payout after 30 calendar days, then move to bi-weekly payouts at an 80% profit split. Minimum payout request threshold is 1% profit, subject to KYC and rule checks.",
-  },
-];
 
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
@@ -29,7 +15,7 @@ export function FaqSection() {
       <Container size="narrow">
         <SectionHeading title="Frequently Asked Questions" />
         <ul className="mt-12 flex flex-col gap-3">
-          {items.map((item, i) => {
+          {faqItems.map((item, i) => {
             const isOpen = open === i;
             return (
               <li key={item.q}>
