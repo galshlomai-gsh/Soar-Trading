@@ -8,6 +8,7 @@ import {
   externalLinks,
 } from "@/components/data/company";
 import { Globe, Share2 } from "lucide-react";
+import { CookiePreferencesButton } from "@/components/layout/CookiePreferencesButton";
 
 function isExternal(href: string) {
   return href.startsWith("http") || href.startsWith("mailto:");
@@ -82,7 +83,8 @@ export function SiteFooter() {
           <span>
             © 2026 {company.tradingName.toUpperCase()}. {brandFooterTagline}
           </span>
-          <span className="flex items-center gap-8">
+          <span className="flex flex-wrap items-center gap-5 md:gap-8">
+            <CookiePreferencesButton />
             <span>Secured by SSL</span>
             <span>256-bit Encryption</span>
           </span>

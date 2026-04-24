@@ -13,11 +13,7 @@ export const footerNav: { heading: string; items: { label: string; href: string 
   },
   {
     heading: "Company",
-    items: [
-      { label: "About Us", href: "/" },
-      { label: "Contact Support", href: "mailto:support@soar-funding.com" },
-      { label: "FAQ", href: "/faq" },
-    ],
+    items: [{ label: "Contact Us", href: "/contact" }],
   },
   {
     heading: "Legal",
