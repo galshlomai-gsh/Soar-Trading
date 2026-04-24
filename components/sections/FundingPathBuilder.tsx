@@ -7,12 +7,12 @@ import { useChallenge } from "@/components/configurator/ChallengeProvider";
 import {
   ALL_SIZES,
   type AccountSize,
-  type ChallengeType,
-  getChallenge,
-  getPrice,
+  checkoutHref,
+  getProduct,
+  getVariation,
   sizeLabel,
   sizeShortLabel,
-} from "@/components/data/challenges";
+} from "@/lib/data/products";
 import { cn } from "@/lib/cn";
 
 type Step = "instant" | "1-step" | "2-step";
@@ -47,12 +47,13 @@ const variantLabel: Record<Variant, string> = {
 };
 
 /**
- * Best-effort mapping from the 2-axis UI selection to an existing
- * ChallengeSpec. Returns undefined when no real spec covers the combo —
- * the UI still accepts every click; we just show TBC pricing.
+ * Map the 2-axis UI selection to a product slug from lib/data/products.ts.
+ * Combos we don't carry return undefined — the UI still accepts every click;
+ * we just show "Price TBC" and disable the CTA.
  */
-function resolveType(step: Step, variant: Variant): ChallengeType | undefined {
+function resolveSlug(step: Step, variant: Variant): string | undefined {
   if (step === "instant" && variant === "rapid") return "rapid-runway";
+  if (step === "instant" && variant === "classic") return "instant-funding";
   if (step === "1-step" && variant === "classic") return "1-step";
   if (step === "2-step" && variant === "classic") return "2-step";
   if (step === "1-step" && variant === "bnpl") return "bnpl-1-step";
@@ -216,9 +217,10 @@ function GetFundedColumn({
   variant: Variant;
 }) {
   const { size } = useChallenge();
-  const resolvedType = resolveType(step, variant);
-  const spec = resolvedType ? getChallenge(resolvedType) : undefined;
-  const price = spec ? getPrice(spec, size) : undefined;
+  const slug = resolveSlug(step, variant);
+  const product = slug ? getProduct(slug) : undefined;
+  const variation = product ? getVariation(product, size) : undefined;
+  const price = variation?.price;
   return (
     <Column step={3} label="Get Funded">
       <div className="flex flex-col divide-y divide-white/5">
@@ -235,6 +237,10 @@ function GetFundedColumn({
               <span className="font-display text-xl font-extrabold text-accent tabular-nums">
                 ${price}
               </span>
+            ) : variation ? (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
+                Included
+              </span>
             ) : (
               <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
                 Price TBC
@@ -243,14 +249,20 @@ function GetFundedColumn({
           }
         />
       </div>
-      <Button
-        size="lg"
-        fullWidth
-        className="mt-6"
-        href={`/checkout?step=${step}&variant=${variant}&size=${size}`}
-      >
-        START CHALLENGE
-      </Button>
+      {variation ? (
+        <Button
+          size="lg"
+          fullWidth
+          className="mt-6"
+          href={checkoutHref(variation.variationId)}
+        >
+          START CHALLENGE
+        </Button>
+      ) : (
+        <Button size="lg" fullWidth className="mt-6" disabled>
+          Combination unavailable
+        </Button>
+      )}
     </Column>
   );
 }

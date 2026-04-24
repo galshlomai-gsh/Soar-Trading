@@ -14,31 +14,29 @@ import {
 import {
   ALL_SIZES,
   type AccountSize,
-  type ChallengeType,
-  getChallenge,
-  getPrice,
+  type Product,
+  type ProductVariation,
+  getProduct,
+  getVariation,
+  getVariationById,
+  products,
   sizeLabel,
-} from "@/components/data/challenges";
+} from "@/lib/data/products";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+
+const DEFAULT_PRODUCT_SLUG = "1-step";
+const DEFAULT_SIZE: AccountSize = "100k";
 
 type Step = "instant" | "1-step" | "2-step";
 type Variant = "bnpl" | "rapid" | "classic";
 
-const stepLabel: Record<Step, string> = {
-  instant: "Instant",
-  "1-step": "1 Step",
-  "2-step": "2 Step",
-};
+const STEPS: Step[] = ["instant", "1-step", "2-step"];
+const VARIANTS: Variant[] = ["bnpl", "rapid", "classic"];
 
-const variantLabel: Record<Variant, string> = {
-  bnpl: "BNPL",
-  rapid: "Rapid",
-  classic: "Classic",
-};
-
-function resolveType(step: Step, variant: Variant): ChallengeType | undefined {
+function resolveSlug(step: Step, variant: Variant): string | undefined {
   if (step === "instant" && variant === "rapid") return "rapid-runway";
+  if (step === "instant" && variant === "classic") return "instant-funding";
   if (step === "1-step" && variant === "classic") return "1-step";
   if (step === "2-step" && variant === "classic") return "2-step";
   if (step === "1-step" && variant === "bnpl") return "bnpl-1-step";
@@ -46,21 +44,51 @@ function resolveType(step: Step, variant: Variant): ChallengeType | undefined {
   return undefined;
 }
 
-const STEPS: Step[] = ["instant", "1-step", "2-step"];
-const VARIANTS: Variant[] = ["bnpl", "rapid", "classic"];
-
-function parseStep(v: string | null): Step {
-  return v && (STEPS as string[]).includes(v) ? (v as Step) : "1-step";
-}
-
-function parseVariant(v: string | null): Variant {
-  return v && (VARIANTS as string[]).includes(v) ? (v as Variant) : "classic";
-}
-
-function parseSize(v: string | null): AccountSize {
+function parseSize(v: string | null): AccountSize | undefined {
   return v && (ALL_SIZES as string[]).includes(v)
     ? (v as AccountSize)
-    : "100k";
+    : undefined;
+}
+
+interface ResolvedOrder {
+  product: Product;
+  variation: ProductVariation;
+}
+
+function resolveOrder(params: URLSearchParams): ResolvedOrder {
+  const addToCart = params.get("add-to-cart");
+  if (addToCart) {
+    const n = Number(addToCart);
+    if (Number.isFinite(n)) {
+      const hit = getVariationById(n);
+      if (hit) return hit;
+    }
+  }
+
+  const step = params.get("step");
+  const variant = params.get("variant");
+  if (
+    step &&
+    variant &&
+    (STEPS as string[]).includes(step) &&
+    (VARIANTS as string[]).includes(variant)
+  ) {
+    const slug = resolveSlug(step as Step, variant as Variant);
+    const product = slug ? getProduct(slug) : undefined;
+    const size = parseSize(params.get("size")) ?? DEFAULT_SIZE;
+    const variation = product ? getVariation(product, size) : undefined;
+    if (product && variation) return { product, variation };
+    if (product) {
+      const fallback = product.variations[0];
+      if (fallback) return { product, variation: fallback };
+    }
+  }
+
+  const size = parseSize(params.get("size")) ?? DEFAULT_SIZE;
+  const fallback = getProduct(DEFAULT_PRODUCT_SLUG) ?? products[0];
+  const variation =
+    getVariation(fallback, size) ?? fallback.variations[0];
+  return { product: fallback, variation };
 }
 
 type PaymentId = "card" | "crypto" | "wire";
@@ -93,15 +121,9 @@ const paymentOptions: {
 
 export function CheckoutView() {
   const params = useSearchParams();
-  const step = parseStep(params.get("step"));
-  const variant = parseVariant(params.get("variant"));
-  const size = parseSize(params.get("size"));
-
-  const spec = useMemo(() => {
-    const type = resolveType(step, variant);
-    return type ? getChallenge(type) : undefined;
-  }, [step, variant]);
-  const unitPrice = spec ? getPrice(spec, size) : undefined;
+  const order = useMemo(() => resolveOrder(params), [params]);
+  const { product, variation } = order;
+  const unitPrice = variation.price;
 
   const [coupon, setCoupon] = useState("");
   const [couponOpen, setCouponOpen] = useState(false);
@@ -312,10 +334,10 @@ export function CheckoutView() {
                 Soar Funding Challenge
               </div>
               <div className="mt-1 text-base font-bold text-ink">
-                {sizeLabel[size]} · {stepLabel[step]}
+                {sizeLabel[variation.size]} · {product.name}
               </div>
               <div className="mt-0.5 text-xs text-ink-muted">
-                {variantLabel[variant]} · DX Trade platform
+                DX Trade platform · Variation #{variation.variationId}
               </div>
             </div>
             <div className="text-right font-display text-lg font-extrabold tabular-nums text-ink">

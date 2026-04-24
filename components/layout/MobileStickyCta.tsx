@@ -3,15 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { challenges } from "@/components/data/challenges";
+import { products } from "@/lib/data/products";
 import { cn } from "@/lib/cn";
 
 function lowestPrice(): number | undefined {
   const all: number[] = [];
-  for (const c of challenges) {
-    if (!c.pricing) continue;
-    for (const v of Object.values(c.pricing)) {
-      if (typeof v === "number") all.push(v);
+  for (const p of products) {
+    for (const v of p.variations) {
+      if (typeof v.price === "number") all.push(v.price);
     }
   }
   return all.length ? Math.min(...all) : undefined;
