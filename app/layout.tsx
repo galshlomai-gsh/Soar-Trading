@@ -4,6 +4,8 @@ import Script from "next/script";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { CookieConsent } from "@/components/CookieConsent";
+import { AnalyticsClickTracker } from "@/components/AnalyticsClickTracker";
 
 const GTM_ID = "GTM-NWLTQLST";
 
@@ -34,6 +36,24 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
       <head>
         <Script
+          id="gtm-consent-default"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  analytics_storage: 'denied',
+  personalization_storage: 'denied',
+  functionality_storage: 'granted',
+  security_storage: 'granted',
+  wait_for_update: 500
+});`,
+          }}
+        />
+        <Script
           id="gtm-init"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -54,9 +74,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+        <AnalyticsClickTracker />
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
+        <CookieConsent />
       </body>
     </html>
   );
