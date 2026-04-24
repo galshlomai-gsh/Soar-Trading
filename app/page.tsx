@@ -3,6 +3,7 @@ import { Hero } from "@/components/sections/Hero";
 import { PayoutMarquee } from "@/components/sections/PayoutMarquee";
 import { WhyChooseSoar } from "@/components/sections/WhyChooseSoar";
 import { FundingPathBuilder } from "@/components/sections/FundingPathBuilder";
+import { PricingTable } from "@/components/PricingTable";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -25,6 +26,9 @@ export default function Home() {
             <FundingPathBuilder />
           </ChallengeProvider>
         </Suspense>
+      </Reveal>
+      <Reveal>
+        <PricingTable />
       </Reveal>
       <Reveal>
         <ProcessSteps />
