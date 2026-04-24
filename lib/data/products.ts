@@ -1,11 +1,15 @@
 // Pricing catalog for the Soar Funding website.
 // Variation IDs come from the trade.soar-funding.com WooCommerce store and
 // are the source of truth for the add-to-cart URL:
-//   https://trade.soar-funding.com/checkout?add-to-cart=<variationId>
-// The local /checkout route also accepts ?add-to-cart=<variationId>.
+//   https://trade.soar-funding.com/en/checkout?add-to-cart=<variationId>
 //
 // Products whose `name` starts with "!" are hidden from <PricingTable />
 // but remain available for direct deep links.
+
+export const CHECKOUT_BASE_URL =
+  "https://trade.soar-funding.com/en/checkout";
+export const CLIENT_PORTAL_URL =
+  "https://trade.soar-funding.com/en/auth/login";
 
 export type AccountSize = "10k" | "25k" | "50k" | "100k" | "200k";
 
@@ -154,5 +158,5 @@ export function getVariationById(
 }
 
 export function checkoutHref(variationId: number): string {
-  return `/checkout?add-to-cart=${variationId}`;
+  return `${CHECKOUT_BASE_URL}?add-to-cart=${variationId}`;
 }

@@ -48,12 +48,17 @@ export function Button({
   );
   if (href) {
     const { onClick } = rest;
+    const isExternal = /^https?:\/\//.test(href) || href.startsWith("mailto:");
+    const anchorClick = onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>;
+    if (isExternal) {
+      return (
+        <a href={href} className={classes} onClick={anchorClick}>
+          {children}
+        </a>
+      );
+    }
     return (
-      <Link
-        href={href}
-        className={classes}
-        onClick={onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>}
-      >
+      <Link href={href} className={classes} onClick={anchorClick}>
         {children}
       </Link>
     );

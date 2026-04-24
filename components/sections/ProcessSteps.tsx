@@ -60,7 +60,7 @@ export function ProcessSteps() {
             </div>
 
             <div className="mt-10 lg:mt-auto lg:pt-10">
-              <Button href="/checkout" size="lg">
+              <Button href="/#challenge-selector" size="lg">
                 Start Your Evaluation
               </Button>
             </div>

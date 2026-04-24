@@ -49,8 +49,8 @@ const variantLabel: Record<Variant, string> = {
 
 /**
  * Map the 2-axis UI selection to a product slug from lib/data/products.ts.
- * Returns undefined when a combination isn't in the catalog — the UI
- * still accepts every click; we just flag it as unavailable.
+ * Returns undefined when a combination isn't in the catalog — we never
+ * land on those in practice because clicks auto-adjust the other axis.
  */
 function resolveSlug(step: Step, variant: Variant): string | undefined {
   if (step === "instant" && variant === "rapid") return "rapid-runway";
@@ -62,11 +62,46 @@ function resolveSlug(step: Step, variant: Variant): string | undefined {
   return undefined;
 }
 
+// Preference orders when auto-picking a compatible axis. Classic is our
+// broadest variant (pairs with every step), so we default to it when
+// forced to pick. 1 Step is the most common step so it's the step-side
+// default.
+const VARIANT_PREFERENCE: Variant[] = ["classic", "bnpl", "rapid"];
+const STEP_PREFERENCE: Step[] = ["1-step", "2-step", "instant"];
+
+function pickCompatibleVariant(step: Step, current: Variant): Variant {
+  if (resolveSlug(step, current)) return current;
+  for (const v of VARIANT_PREFERENCE) {
+    if (resolveSlug(step, v)) return v;
+  }
+  return current;
+}
+
+function pickCompatibleStep(variant: Variant, current: Step): Step {
+  if (resolveSlug(current, variant)) return current;
+  for (const s of STEP_PREFERENCE) {
+    if (resolveSlug(s, variant)) return s;
+  }
+  return current;
+}
+
 export function FundingPathBuilder() {
   const [step, setStep] = useState<Step>("1-step");
   const [variant, setVariant] = useState<Variant>("classic");
   const slug = resolveSlug(step, variant);
   const product = slug ? getProduct(slug) : undefined;
+
+  const chooseStep = (next: Step) => {
+    setStep(next);
+    const safeVariant = pickCompatibleVariant(next, variant);
+    if (safeVariant !== variant) setVariant(safeVariant);
+  };
+
+  const chooseVariant = (next: Variant) => {
+    setVariant(next);
+    const safeStep = pickCompatibleStep(next, step);
+    if (safeStep !== step) setStep(safeStep);
+  };
 
   return (
     <section className="py-24" id="challenge-selector">
@@ -83,8 +118,8 @@ export function FundingPathBuilder() {
           <SelectModelColumn
             step={step}
             variant={variant}
-            onStep={setStep}
-            onVariant={setVariant}
+            onStep={chooseStep}
+            onVariant={chooseVariant}
           />
           <AccountSizeColumn product={product} />
           <GetFundedColumn step={step} variant={variant} product={product} />
@@ -144,7 +179,7 @@ function SelectModelColumn({
               title={
                 compatible
                   ? undefined
-                  : `Not available with ${variantLabel[variant]}`
+                  : `We'll pair ${s.label} with a compatible variant`
               }
               className={cn(
                 "rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors",
@@ -173,7 +208,7 @@ function SelectModelColumn({
               title={
                 compatible
                   ? undefined
-                  : `Not available with ${stepLabel[step]}`
+                  : `We'll pair ${v.label} with a compatible step`
               }
               className={cn(
                 "rounded-[14px] border px-4 py-4 text-left transition-all",

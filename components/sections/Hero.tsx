@@ -37,7 +37,7 @@ export function Hero() {
             </span>
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Button href="/checkout" size="lg">
+            <Button href="/#challenge-selector" size="lg">
               Select Your Challenge
             </Button>
             <Button href="/rules" size="lg" variant="outline">

@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { primaryNav } from "@/components/data/nav";
+import { CLIENT_PORTAL_URL } from "@/lib/data/products";
 import { cn } from "@/lib/cn";
 
 export function SiteHeader() {
@@ -59,13 +60,13 @@ export function SiteHeader() {
             </li>
           ))}
           <li>
-            <Link
-              href="/client-portal"
+            <a
+              href={CLIENT_PORTAL_URL}
               onClick={() => setOpen(false)}
               className="block rounded-card border border-white/10 bg-surface/60 px-5 py-4 text-base font-semibold text-ink-muted"
             >
               Client Portal
-            </Link>
+            </a>
           </li>
         </ul>
         <Button
@@ -115,13 +116,13 @@ export function SiteHeader() {
               ))}
             </nav>
             <div className="flex items-center gap-4">
-              <Link
-                href="/client-portal"
+              <a
+                href={CLIENT_PORTAL_URL}
                 className="hidden text-[13px] font-medium text-ink-muted transition-colors hover:text-ink sm:inline"
               >
                 Client Portal
-              </Link>
-              <Button href="/checkout" size="sm" className="hidden md:inline-flex">
+              </a>
+              <Button href="/#challenge-selector" size="sm" className="hidden md:inline-flex">
                 Start Trading
               </Button>
               <button
