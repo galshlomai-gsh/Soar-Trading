@@ -243,7 +243,12 @@ function GetFundedColumn({
           }
         />
       </div>
-      <Button size="lg" fullWidth className="mt-6">
+      <Button
+        size="lg"
+        fullWidth
+        className="mt-6"
+        href={`/checkout?step=${step}&variant=${variant}&size=${size}`}
+      >
         START CHALLENGE
       </Button>
     </Column>

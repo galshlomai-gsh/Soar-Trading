@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { trustpilotScore } from "@/components/data/reviews";
 
-const partners = ["Bloomberg", "TradingView", "MetaTrader 5", "REUTERS"];
+const partners = ["Bloomberg", "TradingView", "Platform 5", "REUTERS"];
 
 const avatars = [
   { src: "/avatars/trader-1.png", alt: "Funded Soar trader" },
@@ -37,7 +37,7 @@ export function Hero() {
             </span>
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Button href="/challenges" size="lg">
+            <Button href="/checkout" size="lg">
               Select Your Challenge
             </Button>
             <Button href="/rules" size="lg" variant="outline">

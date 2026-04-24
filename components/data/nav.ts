@@ -1,8 +1,5 @@
 export const primaryNav = [
-  { label: "Challenges", href: "/challenges" },
-  { label: "Payouts", href: "/payouts" },
   { label: "Rules", href: "/rules" },
-  { label: "Affiliates", href: "/affiliates" },
   { label: "FAQ", href: "/faq" },
 ];
 
@@ -11,8 +8,7 @@ export const footerNav: { heading: string; items: { label: string; href: string 
     heading: "Platform",
     items: [
       { label: "Trading Rules", href: "/rules" },
-      { label: "Payout Policy", href: "/payouts" },
-      { label: "Affiliates", href: "/affiliates" },
+      { label: "Checkout", href: "/checkout" },
     ],
   },
   {
