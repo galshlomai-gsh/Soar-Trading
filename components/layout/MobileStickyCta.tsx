@@ -43,7 +43,7 @@ export function MobileStickyCta() {
       )}
     >
       <Link
-        href="/checkout"
+        href="/#challenge-selector"
         className="flex items-center justify-between gap-3 rounded-[14px] border border-accent/40 bg-base/90 px-4 py-3 shadow-[0_18px_40px_-18px_rgba(91,142,240,0.6)] backdrop-blur-xl"
       >
         <div className="flex flex-col">
