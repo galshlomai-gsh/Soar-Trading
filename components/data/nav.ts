@@ -7,10 +7,7 @@ export const primaryNav = [
 export const footerNav: { heading: string; items: { label: string; href: string }[] }[] = [
   {
     heading: "Platform",
-    items: [
-      { label: "Trading Rules", href: "/rules" },
-      { label: "Checkout", href: "/checkout" },
-    ],
+    items: [{ label: "Trading Rules", href: "/rules" }],
   },
   {
     heading: "Company",

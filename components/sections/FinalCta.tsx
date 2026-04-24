@@ -23,7 +23,7 @@ export function FinalCta() {
               $500,000 in institutional capital.
             </p>
             <div className="mt-8 flex justify-center">
-              <Button href="/checkout" size="lg">
+              <Button href="/#challenge-selector" size="lg">
                 Start Your Evaluation
               </Button>
             </div>
