@@ -69,18 +69,32 @@ export function writeConsent(state: Omit<ConsentState, "version" | "updatedAt">)
   window.dispatchEvent(new CustomEvent(CONSENT_CHANGED_EVENT, { detail: next }));
 }
 
-function gtag(...args: unknown[]) {
-  if (typeof window === "undefined") return;
-  type DLWindow = Window & { dataLayer?: unknown[] };
-  const w = window as DLWindow;
+type GtagWindow = Window & {
+  dataLayer?: unknown[];
+  // Matches the shim installed inline in app/layout.tsx; GTM's consent
+  // machinery only recognises consent commands when the dataLayer push
+  // carries the native `arguments` object this shim uses.
+  gtag?: (...args: unknown[]) => void;
+};
+
+function ensureGtag(): NonNullable<GtagWindow["gtag"]> {
+  const w = window as GtagWindow;
   w.dataLayer = w.dataLayer ?? [];
-  w.dataLayer.push(args);
+  if (typeof w.gtag !== "function") {
+    w.gtag = function () {
+      // eslint-disable-next-line prefer-rest-params
+      (w.dataLayer as unknown[]).push(arguments);
+    };
+  }
+  return w.gtag;
 }
 
 export function applyConsent(state: ConsentState) {
+  if (typeof window === "undefined") return;
   const analytics = state.analytics ? "granted" : "denied";
   const marketing = state.marketing ? "granted" : "denied";
   const preferences = state.preferences ? "granted" : "denied";
+  const gtag = ensureGtag();
   gtag("consent", "update", {
     analytics_storage: analytics,
     ad_storage: marketing,
@@ -88,9 +102,9 @@ export function applyConsent(state: ConsentState) {
     ad_personalization: marketing,
     personalization_storage: preferences,
   });
-  // Surface the choice to GTM triggers that may want to react.
-  type DLWindow = Window & { dataLayer?: unknown[] };
-  const w = window as DLWindow;
+  // Surface a plain dataLayer event for GTM triggers that want to react to
+  // the choice itself, separate from Google's consent machinery.
+  const w = window as GtagWindow;
   w.dataLayer = w.dataLayer ?? [];
   w.dataLayer.push({
     event: "consent_update",

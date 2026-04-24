@@ -16,58 +16,65 @@ import {
 } from "@/lib/data/products";
 import { cn } from "@/lib/cn";
 
-type Step = "instant" | "1-step" | "2-step";
-type Variant = "bnpl" | "rapid" | "classic";
+type Step = "instant" | "1-step" | "2-step" | "rapid";
+type Variant = "classic" | "bnpl";
 
 const steps: { id: Step; label: string }[] = [
   { id: "instant", label: "Instant" },
   { id: "1-step", label: "1-Step" },
   { id: "2-step", label: "2-Step" },
+  { id: "rapid", label: "Rapid" },
 ];
 
 const variants: { id: Variant; label: string; sub: string }[] = [
+  { id: "classic", label: "Classic", sub: "Pay the evaluation fee up front." },
   {
     id: "bnpl",
     label: "Buy Now, Pay later",
     sub: "Pay the evaluation fee after you pass.",
   },
-  { id: "rapid", label: "Rapid", sub: "Low targets" },
-  { id: "classic", label: "Classic", sub: "Standard account." },
 ];
 
 const stepLabel: Record<Step, string> = {
   instant: "Instant",
   "1-step": "1 Step",
   "2-step": "2 Step",
+  rapid: "Rapid",
 };
 
 const variantLabel: Record<Variant, string> = {
-  bnpl: "BNPL",
-  rapid: "Rapid",
   classic: "Classic",
+  bnpl: "BNPL",
 };
 
 /**
  * Map the 2-axis UI selection to a product slug from lib/data/products.ts.
- * Returns undefined when a combination isn't in the catalog — we never
- * land on those in practice because clicks auto-adjust the other axis.
+ *
+ * Compatibility matrix:
+ *   Instant × Classic       → Instant Funding
+ *   1 Step  × Classic / BNPL→ 1 Step / BNPL 1 Step
+ *   2 Step  × Classic / BNPL→ 2 Step / BNPL 2 Step
+ *   Rapid   × BNPL          → Rapid Runway
+ *
+ * Missing cells (e.g. Instant × BNPL, Rapid × Classic) return undefined —
+ * clicks auto-adjust the other axis so the user never lands on one in
+ * practice.
  */
 function resolveSlug(step: Step, variant: Variant): string | undefined {
-  if (step === "instant" && variant === "rapid") return "rapid-runway";
   if (step === "instant" && variant === "classic") return "instant-funding";
   if (step === "1-step" && variant === "classic") return "1-step";
-  if (step === "2-step" && variant === "classic") return "2-step";
   if (step === "1-step" && variant === "bnpl") return "bnpl-1-step";
+  if (step === "2-step" && variant === "classic") return "2-step";
   if (step === "2-step" && variant === "bnpl") return "bnpl-2-step";
+  if (step === "rapid" && variant === "bnpl") return "rapid-runway";
   return undefined;
 }
 
-// Preference orders when auto-picking a compatible axis. Classic is our
-// broadest variant (pairs with every step), so we default to it when
-// forced to pick. 1 Step is the most common step so it's the step-side
-// default.
-const VARIANT_PREFERENCE: Variant[] = ["classic", "bnpl", "rapid"];
-const STEP_PREFERENCE: Step[] = ["1-step", "2-step", "instant"];
+// Preference orders when auto-picking a compatible axis.
+// Classic pairs with Instant / 1 Step / 2 Step; BNPL pairs with 1 Step /
+// 2 Step / Rapid. 1 Step stays the default step.
+const VARIANT_PREFERENCE: Variant[] = ["classic", "bnpl"];
+const STEP_PREFERENCE: Step[] = ["1-step", "2-step", "instant", "rapid"];
 
 function pickCompatibleVariant(step: Step, current: Variant): Variant {
   if (resolveSlug(step, current)) return current;
@@ -166,7 +173,7 @@ function SelectModelColumn({
 }) {
   return (
     <Column step={1} label="Select Model">
-      <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-base/60 p-1">
+      <div className="flex flex-wrap items-center gap-1.5 rounded-[22px] border border-white/10 bg-base/60 p-1">
         {steps.map((s) => {
           const active = step === s.id;
           const compatible = Boolean(resolveSlug(s.id, variant));
@@ -182,7 +189,7 @@ function SelectModelColumn({
                   : `We'll pair ${s.label} with a compatible variant`
               }
               className={cn(
-                "rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors",
+                "whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-semibold transition-colors sm:px-4",
                 active
                   ? "bg-white/10 text-ink"
                   : compatible
