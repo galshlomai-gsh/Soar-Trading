@@ -69,7 +69,7 @@ export function SiteHeader() {
           </li>
         </ul>
         <Button
-          href="/checkout"
+          href="/#challenge-selector"
           size="lg"
           fullWidth
           className="mt-6"

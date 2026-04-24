@@ -7,6 +7,7 @@ import { useChallenge } from "@/components/configurator/ChallengeProvider";
 import {
   ALL_SIZES,
   type AccountSize,
+  type Product,
   checkoutHref,
   getProduct,
   getVariation,
@@ -48,8 +49,8 @@ const variantLabel: Record<Variant, string> = {
 
 /**
  * Map the 2-axis UI selection to a product slug from lib/data/products.ts.
- * Combos we don't carry return undefined — the UI still accepts every click;
- * we just show "Price TBC" and disable the CTA.
+ * Returns undefined when a combination isn't in the catalog — the UI
+ * still accepts every click; we just flag it as unavailable.
  */
 function resolveSlug(step: Step, variant: Variant): string | undefined {
   if (step === "instant" && variant === "rapid") return "rapid-runway";
@@ -64,6 +65,8 @@ function resolveSlug(step: Step, variant: Variant): string | undefined {
 export function FundingPathBuilder() {
   const [step, setStep] = useState<Step>("1-step");
   const [variant, setVariant] = useState<Variant>("classic");
+  const slug = resolveSlug(step, variant);
+  const product = slug ? getProduct(slug) : undefined;
 
   return (
     <section className="py-24" id="challenge-selector">
@@ -83,8 +86,8 @@ export function FundingPathBuilder() {
             onStep={setStep}
             onVariant={setVariant}
           />
-          <AccountSizeColumn />
-          <GetFundedColumn step={step} variant={variant} />
+          <AccountSizeColumn product={product} />
+          <GetFundedColumn step={step} variant={variant} product={product} />
         </div>
       </Container>
     </section>
@@ -131,17 +134,25 @@ function SelectModelColumn({
       <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-base/60 p-1">
         {steps.map((s) => {
           const active = step === s.id;
+          const compatible = Boolean(resolveSlug(s.id, variant));
           return (
             <button
               key={s.id}
               type="button"
               onClick={() => onStep(s.id)}
               aria-pressed={active}
+              title={
+                compatible
+                  ? undefined
+                  : `Not available with ${variantLabel[variant]}`
+              }
               className={cn(
                 "rounded-full px-4 py-1.5 text-[13px] font-semibold transition-colors",
                 active
                   ? "bg-white/10 text-ink"
-                  : "text-ink-muted hover:text-ink",
+                  : compatible
+                    ? "text-ink-muted hover:text-ink"
+                    : "text-ink-dim/70 hover:text-ink-dim",
               )}
             >
               {s.label}
@@ -152,17 +163,25 @@ function SelectModelColumn({
       <div className="mt-5 flex flex-col gap-3">
         {variants.map((v) => {
           const active = variant === v.id;
+          const compatible = Boolean(resolveSlug(step, v.id));
           return (
             <button
               key={v.id}
               type="button"
               onClick={() => onVariant(v.id)}
               aria-pressed={active}
+              title={
+                compatible
+                  ? undefined
+                  : `Not available with ${stepLabel[step]}`
+              }
               className={cn(
                 "rounded-[14px] border px-4 py-4 text-left transition-all",
                 active
                   ? "border-accent bg-accent/[0.08] ring-1 ring-accent/40"
-                  : "border-white/10 bg-base/40 hover:border-white/20",
+                  : compatible
+                    ? "border-white/10 bg-base/40 hover:border-white/20"
+                    : "border-white/5 bg-base/20 opacity-40 hover:opacity-60",
               )}
             >
               <div className="text-sm font-bold text-ink">{v.label}</div>
@@ -175,8 +194,11 @@ function SelectModelColumn({
   );
 }
 
-function AccountSizeColumn() {
+function AccountSizeColumn({ product }: { product: Product | undefined }) {
   const { size, setSize } = useChallenge();
+  const offeredSizes = new Set<AccountSize>(
+    product?.variations.map((v) => v.size) ?? [],
+  );
   return (
     <Column step={2} label="Account Size">
       <div className="grid grid-cols-2 gap-3">
@@ -184,21 +206,41 @@ function AccountSizeColumn() {
           const active = size === s;
           const isLast = i === ALL_SIZES.length - 1;
           const isOdd = ALL_SIZES.length % 2 === 1;
+          const variation = product?.variations.find((v) => v.size === s);
+          const offered = product ? offeredSizes.has(s) : true;
+          const priced = variation?.price !== undefined;
+          const muted = !offered || !priced;
           return (
             <button
               key={s}
               type="button"
               onClick={() => setSize(s as AccountSize)}
               aria-pressed={active}
+              title={
+                offered
+                  ? priced
+                    ? undefined
+                    : "Price TBC — still selectable"
+                  : product
+                    ? `Not available on ${product.name}`
+                    : undefined
+              }
               className={cn(
                 "flex flex-col items-center justify-center rounded-[14px] border py-5 transition-all",
                 active
                   ? "border-accent bg-accent/[0.08] ring-1 ring-accent/40"
-                  : "border-white/10 bg-base/40 hover:border-white/20",
+                  : muted
+                    ? "border-white/5 bg-base/20 opacity-40 hover:opacity-60"
+                    : "border-white/10 bg-base/40 hover:border-white/20",
                 isLast && isOdd && "col-span-2 md:col-span-1",
               )}
             >
-              <span className="text-lg font-extrabold text-ink tabular-nums">
+              <span
+                className={cn(
+                  "text-lg font-extrabold tabular-nums",
+                  active ? "text-ink" : muted ? "text-ink-dim" : "text-ink",
+                )}
+              >
                 {sizeShortLabel[s]}
               </span>
             </button>
@@ -212,15 +254,24 @@ function AccountSizeColumn() {
 function GetFundedColumn({
   step,
   variant,
+  product,
 }: {
   step: Step;
   variant: Variant;
+  product: Product | undefined;
 }) {
   const { size } = useChallenge();
-  const slug = resolveSlug(step, variant);
-  const product = slug ? getProduct(slug) : undefined;
   const variation = product ? getVariation(product, size) : undefined;
   const price = variation?.price;
+  const sizeAvailable = Boolean(variation);
+  const status = !product
+    ? "combo-missing"
+    : !sizeAvailable
+      ? "size-missing"
+      : price === undefined
+        ? "price-tbc"
+        : "ok";
+
   return (
     <Column step={3} label="Get Funded">
       <div className="flex flex-col divide-y divide-white/5">
@@ -233,17 +284,21 @@ function GetFundedColumn({
         <Row
           label="Challenge Fee"
           value={
-            price !== undefined ? (
+            status === "ok" ? (
               <span className="font-display text-xl font-extrabold text-accent tabular-nums">
                 ${price}
               </span>
-            ) : variation ? (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
-                Included
-              </span>
-            ) : (
+            ) : status === "price-tbc" ? (
               <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-muted">
                 Price TBC
+              </span>
+            ) : status === "size-missing" ? (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-dim">
+                {sizeLabel[size]} unavailable
+              </span>
+            ) : (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-dim">
+                Not in catalog
               </span>
             )
           }
@@ -253,14 +308,19 @@ function GetFundedColumn({
         <Button
           size="lg"
           fullWidth
-          className="mt-6"
+          className={cn("mt-6", status === "price-tbc" && "opacity-75")}
           href={checkoutHref(variation.variationId)}
         >
           START CHALLENGE
         </Button>
       ) : (
-        <Button size="lg" fullWidth className="mt-6" disabled>
-          Combination unavailable
+        <Button
+          size="lg"
+          fullWidth
+          className="mt-6 opacity-50 hover:opacity-60"
+          href="#challenge-selector"
+        >
+          {status === "size-missing" ? "Pick another size" : "Pick another combo"}
         </Button>
       )}
     </Column>
