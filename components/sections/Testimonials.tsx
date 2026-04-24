@@ -5,14 +5,14 @@ const testimonials = [
   {
     name: "Markus Weber",
     role: "Forex Scalper",
-    avatar: "/testimonials/markus-weber.png",
+    avatar: "/Profile Images/Icon4.png",
     quote:
       "The speed of execution and the transparency of the dashboard are unmatched. I received my first payout of $12k within 6 hours of requesting it.",
   },
   {
     name: "Sarah Jenkins",
     role: "Indices Specialist",
-    avatar: "/testimonials/sarah-jenkins.png",
+    avatar: "/Profile Images/Icon5.png",
     quote:
       "Soar Funding actually understands traders. No hidden rules, no crazy drawdown traps. Just clean, professional funding.",
   },
