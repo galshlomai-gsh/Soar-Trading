@@ -121,7 +121,7 @@ export function FundingPathBuilder() {
             onStep={chooseStep}
             onVariant={chooseVariant}
           />
-          <AccountSizeColumn product={product} />
+          <AccountSizeColumn />
           <GetFundedColumn step={step} variant={variant} product={product} />
         </div>
       </Container>
@@ -229,11 +229,8 @@ function SelectModelColumn({
   );
 }
 
-function AccountSizeColumn({ product }: { product: Product | undefined }) {
+function AccountSizeColumn() {
   const { size, setSize } = useChallenge();
-  const offeredSizes = new Set<AccountSize>(
-    product?.variations.map((v) => v.size) ?? [],
-  );
   return (
     <Column step={2} label="Account Size">
       <div className="grid grid-cols-2 gap-3">
@@ -241,41 +238,21 @@ function AccountSizeColumn({ product }: { product: Product | undefined }) {
           const active = size === s;
           const isLast = i === ALL_SIZES.length - 1;
           const isOdd = ALL_SIZES.length % 2 === 1;
-          const variation = product?.variations.find((v) => v.size === s);
-          const offered = product ? offeredSizes.has(s) : true;
-          const priced = variation?.price !== undefined;
-          const muted = !offered || !priced;
           return (
             <button
               key={s}
               type="button"
               onClick={() => setSize(s as AccountSize)}
               aria-pressed={active}
-              title={
-                offered
-                  ? priced
-                    ? undefined
-                    : "Price TBC — still selectable"
-                  : product
-                    ? `Not available on ${product.name}`
-                    : undefined
-              }
               className={cn(
                 "flex flex-col items-center justify-center rounded-[14px] border py-5 transition-all",
                 active
                   ? "border-accent bg-accent/[0.08] ring-1 ring-accent/40"
-                  : muted
-                    ? "border-white/5 bg-base/20 opacity-40 hover:opacity-60"
-                    : "border-white/10 bg-base/40 hover:border-white/20",
+                  : "border-white/10 bg-base/40 hover:border-white/20",
                 isLast && isOdd && "col-span-2 md:col-span-1",
               )}
             >
-              <span
-                className={cn(
-                  "text-lg font-extrabold tabular-nums",
-                  active ? "text-ink" : muted ? "text-ink-dim" : "text-ink",
-                )}
-              >
+              <span className="text-lg font-extrabold tabular-nums text-ink">
                 {sizeShortLabel[s]}
               </span>
             </button>

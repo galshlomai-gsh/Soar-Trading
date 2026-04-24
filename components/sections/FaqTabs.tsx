@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import {
@@ -14,6 +14,18 @@ export function FaqTabs() {
   const [category, setCategory] = useState<FaqCategory | "all">("all");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+
+  useEffect(() => {
+    const sync = () => {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (!hash) return;
+      const match = faqCategories.find((c) => c.id === hash);
+      if (match) setCategory(match.id);
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
 
   const items = useMemo(() => {
     const q = query.trim().toLowerCase();
