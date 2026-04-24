@@ -19,7 +19,7 @@ export function Hero() {
     <section className="relative -mt-16 overflow-hidden bg-elevated">
       <HeroMonitorsBackdrop />
       <Container size="wide" className="relative">
-        <div className="pt-28 pb-12 md:pt-36 md:pb-20">
+        <div className="relative pt-28 pb-12 md:pt-36 md:pb-20">
           <Badge tone="accent" className="gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             PAY AFTER YOU PASS
@@ -27,13 +27,13 @@ export function Hero() {
           <h1 className="mt-6 font-display text-[44px] font-extrabold leading-[1.05] tracking-[-0.024em] text-ink sm:text-6xl md:text-[88px] lg:text-[96px]">
             Scale Your Trading
             <br />
-            to <span className="text-gradient">$200,000</span>
+            to <span className="text-gradient">$300,000</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-muted sm:text-[17px]">
             Access institutional-grade capital and trade with industry-leading
             conditions. Keep up to{" "}
             <span className="font-semibold text-accent-soft">
-              90% of your profits.
+              100% of your profits.
             </span>
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -44,6 +44,14 @@ export function Hero() {
               View Rules
             </Button>
             <SocialProofCluster rating={rating} />
+          </div>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-0 top-40 hidden text-right font-display text-[12px] font-bold uppercase leading-[1.45] tracking-[0.32em] text-accent-soft/80 md:block"
+          >
+            <div>Clarity.</div>
+            <div>Discipline.</div>
+            <div>Freedom.</div>
           </div>
         </div>
       </Container>
