@@ -47,8 +47,13 @@ export function Button({
     className,
   );
   if (href) {
+    const { onClick } = rest;
     return (
-      <Link href={href} className={classes}>
+      <Link
+        href={href}
+        className={classes}
+        onClick={onClick as unknown as React.MouseEventHandler<HTMLAnchorElement>}
+      >
         {children}
       </Link>
     );
