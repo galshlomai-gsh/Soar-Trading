@@ -1,13 +1,15 @@
 export const primaryNav = [
   { label: "Home", href: "/" },
-  { label: "Rules", href: "/rules" },
   { label: "FAQ", href: "/faq" },
 ];
 
 export const footerNav: { heading: string; items: { label: string; href: string }[] }[] = [
   {
     heading: "Platform",
-    items: [{ label: "Trading Rules", href: "/rules" }],
+    items: [
+      { label: "Trading Rules", href: "/faq#rules" },
+      { label: "FAQ", href: "/faq" },
+    ],
   },
   {
     heading: "Company",

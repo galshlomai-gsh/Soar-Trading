@@ -111,8 +111,63 @@ export const faqItems: FaqItem[] = [
   },
   {
     category: "rules",
-    q: "Trading Rules",
-    a: "Minimum 2-minute hold on every trade. No copy trading or hedging across accounts. No HFT, toxic trading, or latency arbitrage. News trading only with the correct add-on. Weekend holding is permitted. At least one trade every 30 days. See the full rules page for details.",
+    q: "What are the core trading rules?",
+    a: "Minimum 2-minute hold on every trade. No copy trading or hedging across accounts. No HFT, toxic trading, execution abuse, or latency arbitrage. Weekend holding is permitted. VPNs and static IPs are allowed if consistent. At least one trade every 30 days. Expert Advisors must be reviewed and approved. Stop-loss is not mandatory but recommended. All trades are monitored by the risk team.",
+  },
+  {
+    category: "rules",
+    q: "Can I trade the news?",
+    a: "Trading within 5 minutes before or after high-impact news is not permitted unless you have purchased the correct add-on. Profits made during the restricted window may be deducted, and repeated breaches may close the account.",
+  },
+  {
+    category: "rules",
+    q: "Are Expert Advisors (EAs) allowed?",
+    a: "Expert Advisors may be used where they are reviewed, approved, and compliant with Soar Funding's trading rules. Strategies that exploit demo conditions, pricing, execution, latency, or platform infrastructure are not allowed.",
+  },
+  {
+    category: "rules",
+    q: "Can I copy trade or hedge across accounts?",
+    a: "Copy trading and hedging across accounts are not permitted. Each trader must trade independently and comply with the platform's risk rules.",
+  },
+  {
+    category: "rules",
+    q: "What counts as toxic trading?",
+    a: "Toxic trading is any strategy or behaviour that exploits demo conditions, pricing, execution, latency, or platform infrastructure. Toxic trading is a hard breach and can result in account termination, loss of profits, and no payout eligibility.",
+  },
+  {
+    category: "rules",
+    q: "What is a soft breach?",
+    a: "Soft breaches are behaviours that violate the trading rules without triggering immediate account termination. They accumulate and do not reset until a successful payout is completed. Three soft breaches count as one hard breach. Enforcement may occur retrospectively after phase completion or a payout request.",
+  },
+  {
+    category: "rules",
+    q: "What is a hard breach?",
+    a: "A hard breach is a serious violation that can terminate the account outright. Consequences include loss of profits, no payout eligibility, and no refund of the challenge fee.",
+  },
+  {
+    category: "rules",
+    q: "What are the consistency rules on the funded stage?",
+    a: "Consistency rules cap the share of total profits that can be made on a single trading day on a simulated funded account. 2 Step: 40% max. 1 Step: 35% max. BNPL 2 Step: 25% max. Rapid Runway: 20% max. BNPL 1 Step: 15% max.",
+  },
+  {
+    category: "rules",
+    q: "Can I use a VPN, VPS, or static IP?",
+    a: "VPNs and static IPs are permitted where usage is consistent. VPS providers should also be used consistently. Unusual location changes or frequent switching between providers may trigger a review.",
+  },
+  {
+    category: "rules",
+    q: "Are accounts reviewed retrospectively?",
+    a: "All trades are monitored by the risk team. Accounts may be reviewed after phase completion or a payout request. Soar Funding may deduct profits, reclassify breaches, or terminate accounts based on historical activity where rules have been breached.",
+  },
+  {
+    category: "rules",
+    q: "Is a stop-loss required?",
+    a: "A stop-loss is not mandatory, but it is strongly recommended on every trade. Drawdown limits still apply regardless of whether a stop-loss is attached.",
+  },
+  {
+    category: "rules",
+    q: "Where do the full rules live?",
+    a: "The Terms of Service are authoritative. Where there is any conflict between marketing copy and the Terms, the Terms apply.",
   },
   {
     category: "general",

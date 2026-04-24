@@ -40,7 +40,7 @@ export function Hero() {
             <Button href="/#challenge-selector" size="lg">
               Select Your Challenge
             </Button>
-            <Button href="/rules" size="lg" variant="outline">
+            <Button href="/faq#rules" size="lg" variant="outline">
               View Rules
             </Button>
             <SocialProofCluster rating={rating} />
