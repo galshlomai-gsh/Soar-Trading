@@ -39,7 +39,15 @@ export function ProcessSteps() {
           </h2>
         </div>
         <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
-          <ProcessCollage />
+          <div className="relative w-full overflow-hidden rounded-2xl border border-white/10" style={{ aspectRatio: "1 / 1" }}>
+            <Image
+              src="/process/steps.png"
+              alt="Soar trading process — Choose, Trade, Capital, Paid"
+              fill
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
+            />
+          </div>
 
           <div>
             <ol className="flex flex-col gap-6">
@@ -78,67 +86,3 @@ export function ProcessSteps() {
   );
 }
 
-function ProcessCollage() {
-  return (
-    <div className="grid grid-cols-2 gap-4 sm:gap-5">
-      <div className="flex flex-col gap-4 self-start sm:gap-5">
-        <CollageTile
-          src="/process/step-1-registration.png"
-          ratio="1055 / 558"
-          alt="Step 1 — Choose"
-          caption="1. CHOOSE"
-        />
-        <CollageTile
-          src="/process/chart.png"
-          ratio="1055 / 1096"
-          alt="Step 2 — Trade"
-          caption="2. TRADE"
-        />
-      </div>
-      <div className="flex flex-col gap-4 self-end sm:gap-5">
-        <CollageTile
-          src="/process/desk.png"
-          ratio="1055 / 1096"
-          alt="Step 3 — Capital"
-          caption="3. CAPITAL"
-        />
-        <CollageTile
-          src="/process/step-3-get-funded.png"
-          ratio="1055 / 583"
-          alt="Step 4 — Paid"
-          caption="4. PAID"
-        />
-      </div>
-    </div>
-  );
-}
-
-function CollageTile({
-  src,
-  ratio,
-  alt,
-  caption,
-}: {
-  src: string;
-  ratio: string;
-  alt: string;
-  caption: string;
-}) {
-  return (
-    <div
-      className="relative w-full overflow-hidden rounded-2xl border border-white/10"
-      style={{ aspectRatio: ratio }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes="(min-width: 1024px) 30vw, 50vw"
-        className="object-cover"
-      />
-      <span className="absolute left-3 top-3 rounded-[8px] bg-base/80 px-2 py-1 text-[10px] font-extrabold uppercase tracking-[0.24em] text-ink backdrop-blur-sm">
-        {caption}
-      </span>
-    </div>
-  );
-}
