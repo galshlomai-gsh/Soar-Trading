@@ -1,0 +1,81 @@
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+
+export function HeroBackdrop() {
+  const imageWrapRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const wrap = imageWrapRef.current;
+    const root = sectionRef.current;
+    if (!wrap || !root) return;
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduceMotion) return;
+
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const rect = root.getBoundingClientRect();
+      // Drift the background up to ~80px as the user scrolls past the hero.
+      const offset = Math.max(-200, Math.min(0, rect.top)) * 0.4;
+      wrap.style.transform = `translate3d(0, ${offset}px, 0)`;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={sectionRef}
+      aria-hidden
+      className="pointer-events-none absolute inset-0 -z-0 overflow-hidden"
+    >
+      <div
+        ref={imageWrapRef}
+        className="absolute inset-x-0 -top-[10%] h-[130%] will-change-transform"
+      >
+        <Image
+          src="/brand/hero-bg.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </div>
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(5,7,13,0.92) 0%, rgba(5,7,13,0.78) 40%, rgba(5,7,13,0.55) 75%, rgba(5,7,13,0.45) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(5,7,13,0.35) 0%, rgba(5,7,13,0) 35%, rgba(5,7,13,0) 65%, rgba(5,7,13,0.55) 100%)",
+        }}
+      />
+    </div>
+  );
+}

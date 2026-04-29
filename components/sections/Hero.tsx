@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { trustpilotScore } from "@/components/data/reviews";
+import { HeroBackdrop } from "@/components/sections/HeroBackdrop";
 
 const partners = ["Bloomberg", "TradingView", "Platform 5", "REUTERS"];
 
@@ -17,7 +18,7 @@ export function Hero() {
   const rating = trustpilotScore?.toFixed(1) ?? "4.8";
   return (
     <section className="relative -mt-16 overflow-hidden bg-elevated">
-      <HeroMonitorsBackdrop />
+      <HeroBackdrop />
       <Container size="wide" className="relative">
         <div className="relative pt-28 pb-12 md:pt-36 md:pb-20">
           <Badge tone="accent" className="gap-2">
@@ -115,31 +116,3 @@ function PartnersStrip() {
   );
 }
 
-function HeroMonitorsBackdrop() {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-0">
-      <Image
-        src="/brand/hero-bg.png"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(5,7,13,0.92) 0%, rgba(5,7,13,0.78) 40%, rgba(5,7,13,0.55) 75%, rgba(5,7,13,0.45) 100%)",
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(5,7,13,0.35) 0%, rgba(5,7,13,0) 35%, rgba(5,7,13,0) 65%, rgba(5,7,13,0.55) 100%)",
-        }}
-      />
-    </div>
-  );
-}
