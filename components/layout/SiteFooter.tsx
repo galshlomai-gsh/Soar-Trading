@@ -7,7 +7,7 @@ import {
   company,
   externalLinks,
 } from "@/components/data/company";
-import { Globe, Share2 } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { CookiePreferencesButton } from "@/components/layout/CookiePreferencesButton";
 
 function isExternal(href: string) {
@@ -33,15 +33,6 @@ export function SiteFooter() {
                 className="inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-white/10 bg-surface/60 text-ink-muted transition-colors hover:border-accent/40 hover:text-ink"
               >
                 <Share2 className="h-4 w-4" />
-              </a>
-              <a
-                href={externalLinks.ttp}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Visit our partner site"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-white/10 bg-surface/60 text-ink-muted transition-colors hover:border-accent/40 hover:text-ink"
-              >
-                <Globe className="h-4 w-4" />
               </a>
             </div>
           </div>

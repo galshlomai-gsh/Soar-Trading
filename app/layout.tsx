@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { TrustedPropBanner } from "@/components/layout/TrustedPropBanner";
 import { CookieConsent } from "@/components/CookieConsent";
 import { AnalyticsClickTracker } from "@/components/AnalyticsClickTracker";
 
@@ -77,6 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <AnalyticsClickTracker />
         <SiteHeader />
         <main>{children}</main>
+        <TrustedPropBanner />
         <SiteFooter />
         <CookieConsent />
       </body>
