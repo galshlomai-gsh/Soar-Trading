@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -106,8 +106,8 @@ function PartnersStrip() {
           <div className="flex items-center gap-5 sm:gap-6">
             <span aria-hidden className="hidden h-6 w-px bg-white/15 sm:block" />
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
-              <CheckCircle2 className="h-3.5 w-3.5 text-ok" strokeWidth={2.5} />
-              Verified Payouts Active
+              <BadgeCheck className="h-3.5 w-3.5 text-ok" strokeWidth={2.5} />
+              TPT Certified
             </span>
           </div>
         </div>
