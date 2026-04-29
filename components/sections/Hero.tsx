@@ -8,9 +8,9 @@ import { trustpilotScore } from "@/components/data/reviews";
 const partners = ["Bloomberg", "TradingView", "Platform 5", "REUTERS"];
 
 const avatars = [
-  { src: "/avatars/trader-1.png", alt: "Funded Soar trader" },
-  { src: "/avatars/trader-3.png", alt: "Funded Soar trader" },
-  { src: "/avatars/trader-2.png", alt: "Funded Soar trader" },
+  { src: "/avatars/icon-1.png", alt: "Funded Soar trader" },
+  { src: "/avatars/icon-5.png", alt: "Funded Soar trader" },
+  { src: "/avatars/icon-9.png", alt: "Funded Soar trader" },
 ];
 
 export function Hero() {
@@ -123,55 +123,21 @@ function PartnersStrip() {
 function HeroMonitorsBackdrop() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-0">
+      <Image
+        src="/brand/hero-bg.png"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(135deg, #0B1220 0%, #0E1626 45%, #111B30 100%)",
+            "linear-gradient(90deg, rgba(11,18,32,0.85) 0%, rgba(11,18,32,0.55) 45%, rgba(11,18,32,0.25) 100%)",
         }}
       />
-      <div
-        className="absolute inset-0 opacity-80"
-        style={{
-          background:
-            "radial-gradient(900px 500px at 85% 30%, rgba(91,142,240,0.22), transparent 60%), radial-gradient(700px 400px at 10% 10%, rgba(143,184,255,0.10), transparent 60%), radial-gradient(600px 400px at 70% 95%, rgba(91,142,240,0.12), transparent 60%)",
-        }}
-      />
-      <div className="absolute inset-0 bg-grid mask-radial-fade opacity-25" />
-      <svg
-        className="absolute right-0 top-10 hidden h-[85%] w-[55%] opacity-30 md:block"
-        viewBox="0 0 700 560"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="hero-chart-up" x1="0" y1="0" x2="0" y2="560" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#6FE3A5" stopOpacity="0.45" />
-            <stop offset="1" stopColor="#6FE3A5" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="hero-chart-line" x1="0" y1="0" x2="700" y2="0" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#5B8EF0" stopOpacity="0" />
-            <stop offset="0.3" stopColor="#B9D0FF" />
-            <stop offset="1" stopColor="#B9D0FF" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M0 420 L80 380 L150 400 L220 330 L300 360 L380 260 L460 290 L540 200 L620 230 L700 160 L700 560 L0 560 Z"
-          fill="url(#hero-chart-up)"
-        />
-        <path
-          d="M0 420 L80 380 L150 400 L220 330 L300 360 L380 260 L460 290 L540 200 L620 230 L700 160"
-          stroke="url(#hero-chart-line)"
-          strokeWidth="2"
-          fill="none"
-        />
-        <path
-          d="M0 470 C 150 440, 260 500, 420 440 S 600 380, 700 410"
-          stroke="#5B8EF0"
-          strokeOpacity="0.25"
-          strokeWidth="1"
-          fill="none"
-        />
-      </svg>
     </div>
   );
 }
