@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+const PARALLAX_FACTOR = 0.55;
+const SMOOTHING = 0.12;
+
 export function HeroBackdrop() {
   const imageWrapRef = useRef<HTMLDivElement | null>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -17,29 +20,58 @@ export function HeroBackdrop() {
     ).matches;
     if (reduceMotion) return;
 
-    let ticking = false;
+    let target = 0;
+    let current = 0;
+    let rafId = 0;
+    let running = false;
 
-    const update = () => {
-      ticking = false;
+    const computeTarget = () => {
       const rect = root.getBoundingClientRect();
-      // Drift the background up to ~80px as the user scrolls past the hero.
-      const offset = Math.max(-200, Math.min(0, rect.top)) * 0.4;
-      wrap.style.transform = `translate3d(0, ${offset}px, 0)`;
+      const max = rect.height * 0.6;
+      const drift = -rect.top * PARALLAX_FACTOR;
+      target = Math.max(-max, Math.min(max, drift));
+    };
+
+    const tick = () => {
+      const delta = target - current;
+      if (Math.abs(delta) < 0.05) {
+        current = target;
+        wrap.style.transform = `translate3d(0, ${current.toFixed(2)}px, 0)`;
+        running = false;
+        return;
+      }
+      current += delta * SMOOTHING;
+      wrap.style.transform = `translate3d(0, ${current.toFixed(2)}px, 0)`;
+      rafId = window.requestAnimationFrame(tick);
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      rafId = window.requestAnimationFrame(tick);
     };
 
     const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(update);
-        ticking = true;
-      }
+      computeTarget();
+      start();
     };
 
-    update();
+    const onResize = () => {
+      computeTarget();
+      current = target;
+      wrap.style.transform = `translate3d(0, ${current.toFixed(2)}px, 0)`;
+    };
+
+    computeTarget();
+    current = target;
+    wrap.style.transform = `translate3d(0, ${current.toFixed(2)}px, 0)`;
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("resize", onResize);
+      window.cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -51,7 +83,7 @@ export function HeroBackdrop() {
     >
       <div
         ref={imageWrapRef}
-        className="absolute inset-x-0 -top-[10%] h-[130%] will-change-transform"
+        className="absolute inset-x-0 -top-[25%] h-[160%] will-change-transform"
       >
         <Image
           src="/brand/hero-bg.png"
