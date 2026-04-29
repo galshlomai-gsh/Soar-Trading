@@ -45,14 +45,6 @@ export function Hero() {
             </Button>
             <SocialProofCluster rating={rating} />
           </div>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute right-0 top-40 hidden text-right font-display text-[12px] font-bold uppercase leading-[1.45] tracking-[0.32em] text-accent-soft/80 md:block"
-          >
-            <div>Clarity.</div>
-            <div>Discipline.</div>
-            <div>Freedom.</div>
-          </div>
         </div>
       </Container>
       <PartnersStrip />
