@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-const PARALLAX_FACTOR = 0.55;
+const PARALLAX_FACTOR = 0.18;
+const MAX_OFFSET = 60;
 const SMOOTHING = 0.12;
 
 export function HeroBackdrop() {
@@ -27,9 +28,8 @@ export function HeroBackdrop() {
 
     const computeTarget = () => {
       const rect = root.getBoundingClientRect();
-      const max = rect.height * 0.6;
       const drift = -rect.top * PARALLAX_FACTOR;
-      target = Math.max(-max, Math.min(max, drift));
+      target = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, drift));
     };
 
     const tick = () => {
@@ -83,7 +83,7 @@ export function HeroBackdrop() {
     >
       <div
         ref={imageWrapRef}
-        className="absolute inset-x-0 -top-[25%] h-[160%] will-change-transform"
+        className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
       >
         <Image
           src="/brand/hero-bg.png"
