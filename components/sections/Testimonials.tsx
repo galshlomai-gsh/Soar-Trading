@@ -37,7 +37,6 @@ export function Testimonials() {
             </p>
 
             <dl className="mt-10 flex flex-col gap-5">
-              <Stat value="98%" label="Satisfaction Rate" />
               <Stat value="24/7" label="Premium Support" />
             </dl>
           </div>
