@@ -1,22 +1,24 @@
 import Image from "next/image";
-import { Globe } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 
 interface PayoutExample {
   name: string;
-  country: string;
   amount: number;
+  certificate: string;
 }
 
 const examples: PayoutExample[] = [
-  { name: "Andrew", country: "Singapore", amount: 1253.42 },
-  { name: "Ernest", country: "United Kingdom", amount: 1633.92 },
-  { name: "Marcus", country: "United States", amount: 3480.15 },
-  { name: "Hiro", country: "Japan", amount: 2104.8 },
-  { name: "Chloé", country: "France", amount: 985.6 },
-  { name: "Liam", country: "Australia", amount: 5120.0 },
-  { name: "Sophie", country: "Canada", amount: 2750.25 },
-  { name: "Priya", country: "Singapore", amount: 1840.5 },
+  { name: "Dayberd S.", amount: 13590.0, certificate: "/payouts/dayberd.png" },
+  { name: "Pajor D.", amount: 9382.52, certificate: "/payouts/pajor.png" },
+  { name: "Matthew B.", amount: 7877.83, certificate: "/payouts/matthew.png" },
+  { name: "Stefan Buckland", amount: 7817.7, certificate: "/payouts/stefan.png" },
+  { name: "Scott R.", amount: 4036.16, certificate: "/payouts/scott.png" },
+  { name: "Liam V.", amount: 3132.6, certificate: "/payouts/liam.png" },
+  { name: "Amine1980", amount: 2193.0, certificate: "/payouts/amine.png" },
+  { name: "Ernest O.", amount: 1633.92, certificate: "/payouts/ernest.png" },
+  { name: "Akano A.", amount: 764.3, certificate: "/payouts/akano.png" },
+  { name: "Shivam P.", amount: 744.0, certificate: "/payouts/shivam.png" },
+  { name: "Sanni K.", amount: 337.0, certificate: "/payouts/sanni.png" },
 ];
 
 function fmt(n: number) {
@@ -52,27 +54,25 @@ export function PayoutMarquee() {
   );
 }
 
-function PayoutCard({ name, country, amount }: PayoutExample) {
+function PayoutCard({ name, amount, certificate }: PayoutExample) {
   return (
     <article className="relative flex w-[420px] shrink-0 items-center gap-4 overflow-hidden rounded-2xl border border-white/10 bg-[#141C2E] p-5 shadow-soft sm:w-[460px]">
       <div className="flex min-w-0 flex-1 flex-col">
-        <div className="inline-flex items-center gap-1.5 text-[12px] font-medium text-ink-muted">
-          <Globe className="h-3.5 w-3.5" strokeWidth={2} />
-          <span>{country}</span>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+          Payout Certificate
         </div>
-        <div className="mt-3 text-2xl font-bold text-ink">{name}</div>
-        <div className="mt-0.5 text-[13px] text-ink-muted">{country}</div>
+        <div className="mt-3 truncate text-2xl font-bold text-ink">{name}</div>
         <div className="mt-4 text-[28px] font-extrabold leading-none tabular-nums text-accent">
           ${fmt(amount)}
         </div>
       </div>
-      <div className="relative h-[132px] w-[112px] shrink-0">
+      <div className="relative h-[140px] w-[120px] shrink-0 overflow-hidden rounded-lg">
         <Image
-          src="/brand/payout-certificate.png"
-          alt="Soar Funding payout certificate"
+          src={certificate}
+          alt={`${name} payout certificate`}
           fill
-          sizes="112px"
-          className="object-contain"
+          sizes="120px"
+          className="object-cover"
         />
       </div>
     </article>
