@@ -58,7 +58,7 @@ const config: Config = {
         },
       },
       animation: {
-        marquee: "marquee 40s linear infinite",
+        marquee: "marquee 70s linear infinite",
         "fade-up": "fadeUp 0.6s ease-out both",
         "pulse-dot": "pulseDot 1.8s ease-in-out infinite",
       },
